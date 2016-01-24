@@ -1,0 +1,103 @@
+<?php $__env->startSection('content'); ?>
+	<legend>Setting</legend>
+
+	<?php if(Session::has('pesan')): ?>
+		<?php echo Session::get('pesan'); ?>
+
+	<?php endif; ?>
+
+	<?php echo Form::open(array('url'=>'admin/setting','method'=>'POST','class'=>'form-horizontal','files'=>true)); ?>
+
+		<input type="hidden" name="id" value="<?php echo $setting->id; ?>">
+		<?php echo Bootstrap::horizontal('col-sm-4','col-sm-2')
+			->text('nama','Nama Sekolah',$setting->nm_sekolah,$errors); ?>
+
+
+		<?php echo Bootstrap::horizontal('col-sm-4','col-sm-2')
+			->text('npsn','NPSN',$setting->npsn,$errors); ?>
+
+
+		<?php echo Bootstrap::horizontal('col-sm-4','col-sm-2')
+			->text('nss','NSS',$setting->nss,$errors); ?>
+
+
+		<?php echo Bootstrap::horizontal('col-sm-4','col-sm-2')
+			->text('alamat','Alamat Sekolah',$setting->alamat_sekolah,$errors); ?>
+
+
+		<?php echo Bootstrap::horizontal('col-sm-4','col-sm-2')
+			->text('kabupaten','Kabupaten',$setting->kabupaten,$errors); ?>
+
+
+		<?php echo Bootstrap::horizontal('col-sm-4','col-sm-2')
+			->text('kecamatan','Kecamatan',$setting->kecamatan,$errors); ?>
+
+
+		<?php echo Bootstrap::horizontal('col-sm-4','col-sm-2')
+			->text('status','Status Sekolah',$setting->status_sekolah,$errors); ?>
+
+
+		<?php echo Bootstrap::horizontal('col-sm-4','col-sm-2')
+			->text('mutu','Status Mutu',$setting->status_mutu,$errors); ?>
+
+
+		<?php echo Bootstrap::horizontal('col-sm-4','col-sm-2')
+			->text('akreditasi','Akreditasi',$setting->akreditasi,$errors); ?>
+
+
+		<?php echo Bootstrap::horizontal('col-sm-4','col-sm-2')
+			->text('telp','Telp Sekolah',$setting->telp_sekolah,$errors); ?>
+
+
+		<?php echo Bootstrap::horizontal('col-sm-4','col-sm-2')
+			->text('fax','Fax',$setting->fax_sekolah,$errors); ?>
+
+
+		<?php echo Bootstrap::horizontal('col-sm-4','col-sm-2')
+			->text('nip','Nip Kepala Sekolah',$setting->nip_kepsek,$errors); ?>
+
+
+		<?php echo Bootstrap::horizontal('col-sm-4','col-sm-2')
+			->text('mulai','Mulai Tahun Ajaran',$setting->dari_tahun,$errors); ?>
+
+
+		<?php echo Bootstrap::horizontal('col-sm-4','col-sm-2')
+				->text('sampai','Berakhir Tahun Ajaran',$setting->sampai_tahun,$errors); ?>
+
+
+		<?php echo Bootstrap::horizontal('col-sm-4','col-sm-2')
+			->select('semester','Semester',[$setting->semester=>$setting->semester,'1'=>'1','2'=>'2'],'',$errors); ?>
+
+
+		<div class="form-group">
+			<?php echo Form::label('logo','Logo Sekolah',array('class'=>'col-sm-2 control-label')); ?>
+
+			<div class="col-sm-4">
+				<?php echo HTML::image('uploads/logo/'.$setting->logo_sekolah,'',array('style'=>'width:100px')); ?>
+
+			</div>
+		</div>
+
+		<div class="form-group">
+			<?php echo Form::label('','',array('class'=>'col-sm-2 control-label')); ?>
+
+			<div class="col-sm-4">
+				<input type="file" name="logo" class="form-control">
+			</div>
+		</div>
+
+		<div class="form-group well">
+			<?php echo Form::label('','',array('class'=>'col-sm-2 control-label')); ?>
+
+			<div class="col-sm-4">
+				<button class="btn btn-primary">
+					<i class="glyphicon glyphicon-save"></i>
+					Simpan
+				</button>
+			</div>
+		</div>
+	<?php echo Form::close(); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('template.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

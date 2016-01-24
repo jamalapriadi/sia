@@ -1,0 +1,48 @@
+<?php $__env->startSection('content'); ?>
+	<legend>Jam Pelajaran</legend>
+
+	<a href="<?php echo URL::to('admin/jam/create'); ?>" class="btn btn-primary">
+		<i class="glyphicon glyphicon-plus"></i>
+		Tambah Jam
+	</a>
+
+	<?php if(Session::has('pesan')): ?>
+		<?php echo Session::get('pesan'); ?>
+
+	<?php endif; ?>
+
+	<table class="table table-striped" id="contoh">
+		<thead>
+			<tr>
+				<th>No.</th>
+				<th>Jam Ke - </th>
+				<th>Dari Jam</th>
+				<th>Sampai Jam</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>	
+			<?php $no=0;?>
+			<?php foreach($jam as $row): ?>
+			<?php $no++;?>
+				<tr>
+					<td><?php echo $no; ?></td>
+					<td><?php echo $row->jam_ke; ?></td>
+					<td><?php echo $row->dari_jam; ?></td>
+					<td><?php echo $row->sampai_jam; ?></td>
+					<td>
+						<?php echo Form::open(array('url'=>'admin/jam/'.$row->jam_ke)); ?>
+
+							<?php echo Form::hidden('_method','DELETE'); ?>
+
+							<?php echo Form::submit('Hapus',array('class'=>'btn btn-danger')); ?>
+
+						<?php echo Form::close(); ?>
+
+					</td>
+				</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('template.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

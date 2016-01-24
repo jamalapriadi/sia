@@ -1,0 +1,54 @@
+<?php $__env->startSection('content'); ?>
+  <legend>Edit Nilai Harian</legend>
+  <?php if(Session::has('pesan')): ?>
+    <?php echo Session::get('pesan'); ?>
+
+  <?php endif; ?>
+
+  <?php echo Form::open(array('url'=>'guru/update_nilai_harian','method'=>'POST')); ?>
+
+  <table class="table table-bordered">
+    <tr>
+      <td>ID Mengajar</td>
+      <td> : <?php echo $mengajar->id_mengajar; ?></td>
+    </tr>
+  </table>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>No.</th>
+        <th>NIS</th>
+        <th>Nama</th>
+        <th></th>
+      </tr>
+    </thead>
+    <?php $no=0;?>
+    <?php foreach($nilai as $row): ?>
+      <?php $no++;?>
+      <tr>
+        <td><?php echo $no; ?></td>
+        <td><?php echo $row->nis; ?></td>
+        <td><?php echo $row->nm_siswa; ?></td>
+        <td>
+          <input type="hidden" name="mengajar" value="<?php echo $row->id_mengajar; ?>">
+          <input type="hidden" name="semester" value="<?php echo $row->semester; ?>">
+          <input type="hidden" name="jenis" value="<?php echo $row->kd_jenis; ?>">
+          <input type="hidden" name="nomer" value="<?php echo $row->no_urut; ?>">
+          <input type="hidden" name="nis<?php echo $no; ?>" value="<?php echo $row->nis; ?>">
+          <input type="number" required="required" name="nilai<?php echo $no; ?>" value="<?php echo $row->nilai; ?>" class="form-control">
+        </td>
+      </tr>
+    <?php endforeach; ?>
+  </table>
+
+  <div class="well">
+    <button class="btn btn-primary">
+      Update Nilai
+    </button>
+  </div>
+  <?php echo Form::close(); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('template.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

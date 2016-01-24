@@ -1,0 +1,103 @@
+<?php $__env->startSection('content'); ?>
+<legend>Input Nilai Harian</legend>
+<?php if(Session::has('pesan')): ?>
+<?php echo Session::get('pesan'); ?>
+
+<?php endif; ?>
+
+<?php echo Form::open(array('url'=>'guru/simpan_harian','method'=>'post','class'=>'form-horizontal')); ?>
+
+
+<div class="row">
+  <div class="col-sm-6">
+    <table class="table table-bordered">
+      <tr>
+        <td>Kelas</td>
+        <input type="hidden" name="rombel" value="<?php echo $kelas->kd_rombel; ?>">
+        <td> : <?php echo $kelas->kd_kelas; ?></td>
+      </tr>
+      <tr>
+        <td>Tahun Ajaran</td>
+        <td> : <?php echo $kelas->thn_ajaran; ?></td>
+      </tr>
+      <tr>
+        <td>NIP / Nama Wali</td>
+        <td> : <?php echo $kelas->nip; ?></td>
+      </tr>
+    </table>
+  </div>
+  <div class="col-sm-6">
+    <table class="table table-bordered">
+      <tr>
+        <td>Semester</td>
+        <td>
+          <select id="semester" name="semester" class="form-control" required="required">
+            <option></option>
+            <option Value="Ganjil">Ganjil</option>
+            <option Value="Genap">Genap</option>
+            </select
+          </td>
+        </tr>
+        <tr>
+          <td>Jenis Nilai</td>
+          <td>
+            <input type="hidden" id="mengajar" name="mengajar" value="<?php echo $mengajar->id_mengajar; ?>">
+            <select name="jenis" id="jenis" class="form-control" required="required">
+              <option></option>
+              <option value="UTS">UTS</option>
+              <option value="UAS">UAS</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>No.</th>
+        <th>NIS</th>
+        <th>Nama</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php $no=0;?>
+      <?php foreach($siswa as $row): ?>
+      <?php $no++;?>
+      <tr>
+        <td><?php echo $no; ?></td>
+        <td><?php echo $row->nis; ?>
+
+          <input type="hidden" name="nis<?php echo $no; ?>" value="<?php echo $row->nis; ?>">
+        </td>
+        <td><?php echo $row->nm_siswa; ?></td>
+        <td>
+          <input type="number" name="nilai<?php echo $no; ?>" class="form-control" required="required">
+        </td>
+      </tr>
+      <?php endforeach; ?>
+    </tbody>
+  </table>
+
+  <div class="well">
+    <button class="btn btn-primary">
+      <i class="glyphicon glyphicon-saved"></i>
+      Simpan
+    </button>
+  </div>
+
+  <?php echo Form::close(); ?>
+
+
+  <script>
+    $(function(){
+      $("#semester").click(function(){
+        $("#jenis").val('');
+      });
+    });
+  </script>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('template.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

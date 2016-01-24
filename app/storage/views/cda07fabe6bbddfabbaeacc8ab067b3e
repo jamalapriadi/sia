@@ -1,0 +1,27 @@
+<?php $__env->startSection('content'); ?>
+	<legend>Data Guru</legend>
+
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>NIP</th>
+				<th>Nama</th>
+				<th>Tempat / Tgl. Lahir</th>
+				<th>JK</th>
+			</tr>
+		</thead>
+		<?php $no=0; ?>
+		<?php foreach($guru as $guru): ?>
+		<?php $no++;?>
+			<tr>
+				<td><?php echo $no; ?></td>
+				<td><?php echo $guru->nip; ?></td>
+				<td><?php echo $guru->nm_guru; ?></td>
+				<td><?php echo $guru->tmp_lahir." / ".$guru->tgl_lahir; ?></td>
+				<td><?php echo $guru->jk; ?></td>
+			</tr>
+		<?php endforeach; ?>
+	</table>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('web.template', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

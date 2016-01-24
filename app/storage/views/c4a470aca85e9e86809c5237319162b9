@@ -1,0 +1,70 @@
+<?php $__env->startSection('content'); ?>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th rowspan='2'>No.</th>
+        <th rowspan='2'>NIP</th>
+        <th rowspan='2'>Nama</th>
+        <th rowspan='2'>Mapel</th>
+        <th colspan='3'>Kelas</th>
+        <th rowspan='2'>Jumlah Jam</th>
+        <th  rowspan='2'>Keterangan</th>
+      </tr>
+
+      <tr>
+        <th>VII</th>
+        <th>VIII</th>
+        <th>IX</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php $no=0;?>
+      <?php foreach($mengajar as $row): ?>
+        <?php $no++;?>
+        <tr>
+          <td><?php echo $no; ?></td>
+          <td><?php echo $row->nip; ?></td>
+          <td><?php echo $row->nm_guru; ?></td>
+          <td><?php echo $row->kd_mapel; ?></td>
+          <td>
+            <?php $kelas7=DB::table('mengajar')->where('nip',$row->nip)
+            ->where('kd_rombel','like',"%VII-%")->groupBy('nip')->get();?>
+            <?php foreach($kelas7 as $kel7): ?>
+                v
+            <?php endforeach; ?>
+          </td>
+
+          <td>
+          <?php $kelas8=DB::table('mengajar')->where('nip',$row->nip)
+          ->where('kd_rombel','like',"%VIII-%")->groupBy('nip')->get();?>
+          <?php foreach($kelas8 as $kel8): ?>
+            v
+          <?php endforeach; ?>
+          </td>
+
+          <td>
+          <?php $kelas9=DB::table('mengajar')->where('nip',$row->nip)
+          ->where('kd_rombel','like',"%IX-%")->groupBy('nip')->get();?>
+          <?php foreach($kelas9 as $kel9): ?>
+            v
+          <?php endforeach; ?>
+        </td>
+          <td>
+            <?php
+            //select count(*) from jadwal where id_mengajar like '%196210221984122001%'
+            $jum=DB::select("select count(*) as jumlah from jadwal where id_mengajar
+              like '%$row->nip%'")?>
+            <?php foreach($jum as $j): ?>
+              <?php echo $j->jumlah; ?>
+
+            <?php endforeach; ?>
+          </td>
+          <td></td>
+
+        </tr>
+      <?php endforeach; ?>
+    </tbody>
+  </table>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('template.laporan', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

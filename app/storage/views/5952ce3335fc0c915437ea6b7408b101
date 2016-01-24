@@ -1,0 +1,63 @@
+<?php $__env->startSection('content'); ?>
+	<legend>Data Rombel</legend>
+
+	<a href="<?php echo URL::to('admin/rombel/create'); ?>" class="btn btn-primary">
+		<i class="glyphicon glyphicon-plus"></i>
+		Tambah Rombel
+	</a>
+
+	<?php if(Session::has('pesan')): ?>
+		<?php echo Session::get('pesan'); ?>
+
+	<?php endif; ?>
+
+	<table class="table table-striped" id="contoh">
+		<thead>
+			<tr>
+				<th>No.</th>
+				<th>Kd Rombel</th>
+				<th>Kelas</th>
+				<th>Tahun Ajaran</th>
+				<th>Wali</th>
+				<th></th>
+				<th></th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php $no=0;?>
+			<?php foreach($rombel as $row): ?>
+			<?php $no++;?>
+				<tr>
+					<td><?php echo $no; ?></td>
+					<td><?php echo $row->kd_rombel; ?></td>
+					<td><?php echo $row->kd_kelas; ?></td>
+					<td><?php echo $row->thn_ajaran; ?></td>
+					<td><?php echo $row->guru->nm_guru; ?></td>
+					<td>
+						<a title="Tambah Siswa" href="<?php echo URL::to('admin/rombel/'.$row->kd_rombel.'/tambah_siswa'); ?>">
+							<i class="glyphicon glyphicon-plus"></i>
+						</a>
+					</td>
+					<td>
+						<a title="Edit Rombel" href="<?php echo URL::to('admin/rombel/'.$row->kd_rombel.'/edit'); ?>">
+							<i class="glyphicon glyphicon-edit"></i>
+						</a>
+					</td>
+					<td>
+						<?php echo Form::open(array('url'=>'admin/rombel/'.$row->kd_rombel)); ?>
+
+							<?php echo Form::hidden('_method','DELETE'); ?>
+
+							<?php echo Form::submit('Hapus Rombel',array('class'=>'btn btn-danger')); ?>
+
+						<?php echo Form::close(); ?>
+
+					</td>
+				</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('template.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,0 +1,16 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Rombel</th>
+      <th>Mapel</th>
+      <th>Nilai KKM</th>
+    </tr>
+  </thead>
+  <?php foreach($ngajar as $row): ?>
+    <tr>
+      <td><?php echo $row->kd_rombel; ?></td>
+      <td><?php echo $row->kd_mapel; ?></td>
+      <td><?php echo $row->nilai_kkm; ?></td>
+    </tr>
+  <?php endforeach; ?>
+</table>

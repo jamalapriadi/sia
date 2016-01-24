@@ -1,0 +1,84 @@
+		<div class="navbar navbar-default">
+			<div class="container">
+		  <div class="navbar-header">
+		    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+		      <span class="icon-bar"></span>
+		      <span class="icon-bar"></span>
+		      <span class="icon-bar"></span>
+		    </button>
+		    <a class="navbar-brand" href="<?php echo URL::to('admin/index'); ?>">SMP N 1 PAGERBARANG</a>
+		  </div>
+		  <div class="navbar-collapse collapse navbar-responsive-collapse">
+		    <ul class="nav navbar-nav">
+		      <li><a href="<?php echo URL::to('admin/index'); ?>">Beranda</a></li>
+		      <li class="dropdown">
+		        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Website <b class="caret"></b></a>
+		        <ul class="dropdown-menu">
+		          	<li><a href="<?php echo URL::to('admin/kategori'); ?>">Kategori</a></li>
+		          	<li><a href="<?php echo URL::to('admin/berita'); ?>">Berita</a></li>
+								<li><a href="<?php echo URL::to('admin/ekstrakurikuler'); ?>">Ekstrakuriluler</a></li>
+								<li><a href="<?php echo URL::to('admin/banner'); ?>">Banner</a></li>
+								<li><a href="<?php echo URL::to('admin/gallery'); ?>">Gallery</a></li>
+		        </ul>
+		      </li>
+		      <li class="dropdown">
+		        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Master <b class="caret"></b></a>
+		        <ul class="dropdown-menu">
+		          <li><a href="<?php echo URL::to('admin/mapel'); ?>">Mapel</a></li>
+		          <li><a href="<?php echo URL::to('admin/kelas'); ?>">Kelas</a></li>
+		          <li><a href="<?php echo URL::to('admin/siswa'); ?>">Siswa</a></li>
+		          <li><a href="<?php echo URL::to('admin/guru'); ?>">Guru</a></li>
+							<li><a href="<?php echo URL::to('admin/jenis'); ?>">Jenis Nilai</a></li>
+		          <li><a href="<?php echo URL::to('admin/jam'); ?>">Jam Pelajaran</a></li>
+		        </ul>
+		      </li>
+		      <li class="dropdown">
+		        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Setup <b class="caret"></b></a>
+		        <ul class="dropdown-menu">
+		          <li><a href="<?php echo URL::to('admin/rombel'); ?>">Rombel</a></li>
+		          <li><a href="<?php echo URL::to('admin/mengajar'); ?>">Mengajar</a></li>
+		          <li><a href="<?php echo URL::to('admin/jadwal'); ?>">Jadwal</a></li>
+		        </ul>
+		      </li>
+
+		      <li class="dropdown">
+		        <a href="#" class="dropdown-toggle" data-toggle="dropdown">User <b class="caret"></b></a>
+		        <ul class="dropdown-menu">
+								<li><a href="<?php echo URL::to('admin/group'); ?>">Group</a></li>
+		          	<li><a href="<?php echo URL::to('admin/user'); ?>">User</a></li>
+		        </ul>
+		      </li>
+
+		      <li class="dropdown">
+		        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Laporan <b class="caret"></b></a>
+		        <ul class="dropdown-menu">
+		          <li><a href="<?php echo URL::to('admin/lap_rombel'); ?>">Rombel</a></li>
+		          <li><a href="<?php echo URL::to('admin/lap_mengajar'); ?>">Mengajar</a></li>
+							<li><a href="<?php echo URL::to('admin/lap_jadwal'); ?>">Jadwal</a></li>
+							<li><a href="<?php echo URL::to('admin/lap_n_harian'); ?>">Nilai Harian</a></li>
+							<li><a href="<?php echo URL::to('admin/lap_n_ujian'); ?>">Nilai Ujian</a></li>
+		        </ul>
+		      </li>
+
+
+		    </ul>
+		    <ul class="nav navbar-nav navbar-right">
+		    	<li class="dropdown">
+			        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Setting <b class="caret"></b></a>
+			        <ul class="dropdown-menu">
+			          <li><a href="<?php echo URL::to('admin/setting'); ?>">Profile</a></li>
+								<li><a href="#">Backup</a></li>
+								<li><a href="#">Restore</a></li>
+			        </ul>
+			    </li>
+
+		      <li class="dropdown">
+		        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo Sentry::getUser()->username; ?> <b class="caret"></b></a>
+		        <ul class="dropdown-menu">
+		          <li><a href="<?php echo URL::to('logout'); ?>">Logout</a></li>
+		        </ul>
+		      </li>
+		    </ul>
+		  </div>
+		  </div>
+		</div>

@@ -1,0 +1,84 @@
+<?php $__env->startSection('content'); ?>
+<br><br>
+<div class="row" style="margin-bottom:20px;">
+  <div class="col-md-6">
+    <table style="width:100%">
+      <tr>
+        <td>NIS</td>
+        <td> : <?php echo $nis->nis; ?></td>
+      </tr>
+      <tr>
+        <td>Nama</td>
+        <td> : <?php echo $nis->nm_siswa; ?></td>
+      </tr>
+      <tr>
+        <td>Semester</td>
+        <td> : <?php echo $semester; ?></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="col-md-6">
+    <table style="width:100%">
+      <tr>
+        <td>Kelas</td>
+        <td> : <?php echo $kelas->kd_kelas; ?></td>
+      </tr>
+      <tr>
+        <td>Tahun Ajaran</td>
+        <td> : <?php echo $kelas->thn_ajaran; ?></td>
+      </tr>
+      <tr>
+        <td>Wali Kelas</td>
+        <td> : <?php echo $kelas->guru->nm_guru; ?></td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th rowspan='3' style="width:5%">No.</th>
+      <th rowspan='3'>Mapel</th>
+      <th colspan='15'>Jenis Nilai</th>
+    </tr>
+    <tr>
+      <th>NH</th>
+      <th>UTS</th>
+      <th>UAS</th>
+      <th>NA</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php $no=0;?>
+    <?php foreach($nilai as $row): ?>
+    <?php $no++;?>
+    <tr>
+      <td><?php echo $no; ?></td>
+      <td><?php echo $row->kd_mapel; ?></td>
+      <td>
+        <?php
+          //cari jumlah uh di kelas ini
+          $nilai=DB::table('nilai_harian')
+            ->where('kd_rombel','=',$kelas->kd_rombel)
+            ->where('semester','=',$semester)
+            ->where('kd_mapel','=',$row->kd_mapel)
+            ->where('nis','=',$row->nis);
+          $jumlah=$nilai->count();
+          $max=$nilai->sum('nilai');
+          $nh=$max/$jumlah;
+        ?>
+        <?php echo $nh; ?>
+
+      </td>
+      <td><?php echo $row->n_uts; ?></td>
+      <td><?php echo $row->n_uas; ?></td>
+      <td><?php echo number_format((25/100 * $nh) + (35/100*$row->n_uts) + (40/100 * $row->n_uas),2); ?></td>
+    </tr>
+    <?php endforeach; ?>
+  </tbody>
+</table>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('template.laporan', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

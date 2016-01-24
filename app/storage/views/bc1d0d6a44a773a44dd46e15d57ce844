@@ -1,0 +1,55 @@
+<?php $__env->startSection('content'); ?>
+	<legend>Data KKM</legend>
+
+	<a href="<?php echo URL::to('admin/kkm/create'); ?>" class="btn btn-primary">
+		<i class="gpylhicon glyphicon-plus"></i>
+		Tambah KKM
+	</a>
+
+	<?php if(Session::has('pesan')): ?>
+		<hr>
+		<?php echo Session::get('pesan'); ?>
+
+	<?php endif; ?>
+
+	<table  class="table table-striped table-bordered" id="contoh">
+		<thead>
+			<tr>
+				<th>No.</th>
+				<th>Tahun Ajaran</th>
+				<th>Mata Pelajaran</th>
+				<th>Nilai KKM</th>
+				<th></th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php $no=0;?>
+			<?php foreach($kkm as $row): ?>
+				<?php $no++;?>
+				<tr>
+					<td><?php echo $no; ?></td>
+					<td><?php echo $row->thn_ajaran; ?></td>
+					<td><?php echo $row->mapel->nm_mapel; ?></td>
+					<td><?php echo $row->nilai_kkm; ?></td>
+					<td>
+						<a href="<?php echo URL::to('admin/kkm/'.$row->id.'/edit'); ?>" class="btn btn-warning">
+							<i class="glyphicon glyphicon-edit"></i>
+						</a>
+					</td>
+					<td>
+						<?php echo Form::open(array('url'=>'admin/kkm/'.$row->id)); ?>
+
+							<?php echo Form::hidden('_method','DELETE'); ?>
+
+							<?php echo Form::submit('Hapus',array('class'=>'btn btn-danger')); ?>
+
+						<?php echo Form::close(); ?>
+
+					</td>
+				</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('template.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

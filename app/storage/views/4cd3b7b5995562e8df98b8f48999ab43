@@ -1,0 +1,27 @@
+<table id="<?php echo $id; ?>" class="<?php echo $class; ?>">
+    <colgroup>
+        <?php for($i = 0; $i < count($columns); $i++): ?>
+        <col class="con<?php echo $i; ?>" />
+        <?php endfor; ?>
+    </colgroup>
+    <thead>
+    <tr>
+        <?php foreach($columns as $i => $c): ?>
+        <th align="center" valign="middle" class="head<?php echo $i; ?>"><?php echo $c; ?></th>
+        <?php endforeach; ?>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach($data as $d): ?>
+    <tr>
+        <?php foreach($d as $dd): ?>
+        <td><?php echo $dd; ?></td>
+        <?php endforeach; ?>
+    </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>
+
+<?php if(!$noScript): ?>
+    <?php echo $__env->make('datatable::javascript', array('id' => $id, 'options' => $options, 'callbacks' =>  $callbacks), array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php endif; ?>

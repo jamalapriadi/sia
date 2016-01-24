@@ -1,0 +1,53 @@
+<?php $__env->startSection('content'); ?>
+  <legend>Jenis Nilai</legend>
+  <a href="<?php echo URL::to('admin/jenis/create'); ?>" class="btn btn-primary">
+    <i class="glyphicon glyphicon-plus"></i>
+    Tambah Data
+  </a>
+
+  <?php if(Session::has('pesan')): ?>
+    <hr>
+    <?php echo Session::get('pesan'); ?>
+
+  <?php endif; ?>
+
+  <table class="table table-striped" id="contoh">
+    <thead>
+      <tr>
+        <th>No.</th>
+        <th>Kode Jenis</th>
+        <th>Nama Jenis</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php $no=0;?>
+      <?php foreach($jenis as $row): ?>
+        <?php $no++;?>
+        <tr>
+          <td><?php echo $no; ?></td>
+          <td><?php echo $row->kd_jenis; ?></td>
+          <td><?php echo $row->nm_jenis; ?></td>
+          <td>
+            <a href="<?php echo URL::to('admin/jenis/'.$row->kd_jenis.'/edit'); ?>" class="btn btn-success">
+              Edit
+            </a>
+          </td>
+          <td>
+            <?php echo Form::open(array('url'=>'admin/jenis/'.$row->kd_jenis)); ?>
+
+              <?php echo Form::hidden('_method','DELETE'); ?>
+
+              <?php echo Form::submit('Hapus',array('class'=>'btn btn-danger')); ?>
+
+            <?php echo Form::close(); ?>
+
+          </td>
+        </tr>
+      <?php endforeach; ?>
+    </tbody>
+  </table>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('template.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

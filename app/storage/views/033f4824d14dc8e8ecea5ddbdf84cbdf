@@ -1,0 +1,62 @@
+<?php $__env->startSection('content'); ?>
+	<legend>Mengajar</legend>
+
+	<a href="<?php echo URL::to('admin/mengajar/create'); ?>" class="btn btn-primary">
+		<i class="glyphicon glyphicon-plus"></i>
+		Input Data Mengajar
+	</a>
+
+	<a href="<?php echo URL::to('admin/import_mengajar'); ?>" class="btn btn-success">
+		<i class="glyphicon glyphicon-import"></i>
+		Import Data
+	</a>
+
+	<?php if(Session::has('pesan')): ?>
+		<?php echo Session::get('pesan'); ?>
+
+	<?php endif; ?>
+
+	<table class="table table-striped" id="contoh">
+		<thead>
+			<tr>
+				<th>No.</th>
+				<th>NIP</th>
+				<th>NUPTK</th>
+				<th>Nama</th>
+				<th>Mapel</th>
+				<th></th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php $no=0;?>
+			<?php foreach($mengajar as $row): ?>
+			<?php $no++;?>
+				<tr>
+					<td><?php echo $no; ?></td>
+					<td><?php echo $row->guru->nip; ?></td>
+					<td><?php echo $row->guru->nuptk; ?></td>
+					<td><?php echo $row->guru->nm_guru; ?></td>
+					<td><?php echo $row->mapel->nm_mapel; ?></td>
+					<td>
+						<a href="<?php echo URL::to('admin/mengajar/'.$row->id.'/edit'); ?>" class="btn btn-warning">
+							<i class="glyphicon glyphicon-edit"></i>
+						</a>
+					</td>
+					<td>
+						<?php echo Form::open(array('url'=>'admin/mengajar/'.$row->id)); ?>
+
+							<?php echo Form::hidden('_method','DELETE'); ?>
+
+							<?php echo Form::submit('Hapus',array('class'=>'btn btn-danger')); ?>
+
+						<?php echo Form::close(); ?>
+
+					</td>
+				</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('template.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,0 +1,116 @@
+<?php $__env->startSection('content'); ?>
+  <legend>Laporan Nilai Harian</legend>
+
+  <?php if(Session::has('pesan')): ?>
+    <?php echo Session::get('pesan'); ?>
+
+  <?php endif; ?>
+
+  <?php echo Form::open(array('url'=>'admin/cetak_n_harian','method'=>'GET','class'=>'form-horizontal')); ?>
+
+
+    <div class="form-group">
+      <?php echo Form::label('Kelas','Kelas',array('class'=>'col-sm-2 control-label')); ?>
+
+      <div class="col-sm-4">
+        <select name="kelas" class="form-control">
+          <option></option>
+          <?php foreach($kelas as $kel): ?>
+            <option value="<?php echo $kel->kd_kelas; ?>"><?php echo $kel->kd_kelas; ?></option>
+          <?php endforeach; ?>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <?php echo Form::label('tahun','Tahun Ajaran',array('class'=>'col-sm-2 control-label')); ?>
+
+      <div class="col-sm-4">
+        <select name="tahun" class="form-control">
+          <option></option>
+          <?php foreach($tahun as $tah): ?>
+            <option value="<?php echo $tah->thn_ajaran; ?>"><?php echo $tah->thn_ajaran; ?></option>
+          <?php endforeach; ?>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <?php echo Form::label('mapel','Mata Pelajaran',array('class'=>'col-sm-2 control-label')); ?>
+
+      <div class="col-sm-4">
+        <select name="mapel" class="form-control">
+          <option></option>
+          <?php foreach($mapel as $map): ?>
+            <option value="<?php echo $map->kd_mapel; ?>"><?php echo $map->kd_mapel; ?></option>
+          <?php endforeach; ?>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <?php echo Form::label('semester','Semester',array('class'=>'col-sm-2 control-label')); ?>
+
+      <div class="col-sm-4">
+        <select name="semester" class="form-control">
+          <option></option>
+          <option value='Ganjil'>Ganjil</option>
+          <option value='Genap'>Genap</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <?php echo Form::label('nip','NIP',array('class'=>'col-sm-2 control-label')); ?>
+
+      <div class="col-sm-4">
+        <select name="nip" class="form-control">
+          <option></option>
+          <?php foreach($guru as $guru): ?>
+            <option value="<?php echo $guru->nip; ?>"><?php echo $guru->nm_guru; ?></option>
+          <?php endforeach; ?>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group well">
+      <?php echo Form::label('','',array('class'=>'col-sm-2 control-label')); ?>
+
+      <div class="col-sm-4">
+        <button class="btn btn-primary">
+          <i class="glyphicon glyphicon-print"></i>
+          Cetak
+        </button>
+      </div>
+    </div>
+  <?php echo Form::close(); ?>
+
+
+  <script>
+    $(function(){
+      $("#nis").autocomplete({
+        source:"<?php echo URL::to('admin/cari_siswa'); ?>", //alamat yang dituju
+        minLength:2, //cari setelah 2 karakter
+        select: function( event, ui ) {
+          var nis=$("#nis").val();
+
+          $.ajax({
+            url:"<?php echo URL::to('admin/get_siswa'); ?>",
+            type:"POST",
+            data:"nis="+nis,
+            cache:false,
+            success:function(msg){
+              data=msg.split("|");
+              $("#nama").val(data[0]);
+              $("#jk").val(data[1]);
+            }
+          })
+        }
+      });
+
+      $("#nis").result(function(even,data,formatted){});
+    })
+  </script>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('template.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,0 +1,64 @@
+<?php echo Form::open(array('url'=>'admin/simpan_kenaikan_kelas','method'=>'POST')); ?>
+
+  <input type="hidden" name="daritahun" value="<?php echo $awal; ?>">
+  
+  <div class='alert alert-info'>
+  Info : Proses Kenaikan kelas hanya bisa dilakukan satu kali
+  </div>
+
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>NIS</th>
+        <th>Nama</th>
+        <th>JK</th>
+        <th style="width:15%;"><input type='checkbox' id='selectall'> <i>Pilih Semua</i></th>
+      </tr>
+    </thead>
+    <?php $no=0; ?>
+    <?php foreach($siswa as $row): ?>
+    <?php $no++; ?>
+    <tr>
+      <td><?php echo $no; ?></td>
+      <td><?php echo $row->nis; ?></td>
+      <td><?php echo $row->nm_siswa; ?></td>
+      <td><?php echo $row->jk; ?></td>
+      <td style="width:5%;"><input type='checkbox' name='pilih[]' value="<?php echo $row->nis; ?>" class='checkbox1'></td>
+    </tr>
+    <?php endforeach; ?>
+  </table>
+
+
+  <div class="well">
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="form-group">
+          <?php echo Form::label('kelas','Kelas'); ?>
+
+          <select name="kelas" id="" class="form-control">
+            <?php foreach($lain as $row): ?>
+              <option value="<?php echo $row->kd_kelas; ?>"><?php echo $row->kd_kelas; ?></option>
+            <?php endforeach; ?>
+          </select>
+        </div>
+      </div>
+
+      <div class="col-sm-3">
+        <div class="form-group">
+          <?php echo Form::label('tahun','Tahun Ajaran'); ?>
+
+          <input type="text" value="<?php echo ($setting->dari_tahun+1).'-'.($setting->sampai_tahun+1); ?>" readonly="readonly" name="tahun" class="form-control" required="required">
+        </div>
+      </div>
+
+      <div class="col-sm-3">
+        <button class="btn btn-primary" style="margin-top:20px;">
+          <i class="glyphicon glyphicon-refresh"></i>
+          Proses Kenaikan Kelas
+        </button>
+      </div>
+    </div>
+  </div>
+<?php echo Form::close(); ?>
+

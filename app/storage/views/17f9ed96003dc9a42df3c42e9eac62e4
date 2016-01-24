@@ -1,0 +1,198 @@
+<?php $__env->startSection('content'); ?>
+	<legend>Jadwal Mengajar</legend>
+	<table class="table table-bordered">
+		<tr>
+			<td>Id Mengajar</td>
+			<td> : <input type="hidden" id="mengajar" value="<?php echo $mengajar->id_mengajar; ?>">
+			<?php echo $mengajar->id_mengajar; ?></td>
+		</tr>
+		<tr>
+			<td>Rombel</td>
+			<td> : <?php echo $mengajar->kd_rombel; ?></td>
+		</tr>
+		<tr>
+			<td>NIP Pengampu</td>
+			<td> : <?php echo $mengajar->nip." / ".$mengajar->guru->nm_guru; ?></td>
+		</tr>
+		<tr>
+			<td>Mapel</td>
+			<td> : <?php echo $mengajar->mapel->nm_mapel; ?></td>
+		</tr>
+	</table>
+
+	<a href="#" class="btn btn-primary tambah">	
+		<i class="glyphicon glyphicon-plus"></i>
+		Tambah Jadwal
+	</a>
+
+	<?php if(Session::has('pesan')): ?>
+		<?php echo Session::get('pesan'); ?>
+
+	<?php endif; ?>
+
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>No.</th>
+				<th>Hari</th>
+				<th>Jam ke-</th>
+				<th>Dari Jam</th>
+				<th>Sampai Jam</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php $no=0;?>
+			<?php foreach($jadwal as $row): ?>
+				<?php $no++;?>
+				<tr>
+					<td><?php echo $no; ?></td>
+					<td><?php echo $row->hari; ?></td>
+					<td><?php echo $row->jam_ke; ?></td>
+					<td><?php echo $row->dari_jam; ?></td>
+					<td><?php echo $row->sampai_jam; ?></td>
+					<td>
+						<a href="#" class="hapus" mengajar="<?php echo $mengajar->id_mengajar; ?>"
+						hari="<?php echo $row->hari; ?>" jam="<?php echo $row->jam_ke; ?>">
+							<i class="glyphicon glyphicon-trash"></i>
+						</a>
+					</td>
+				</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+
+	<!-- Modal -->
+		<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		        <h4 class="modal-title">Setting</h4>
+		      </div>
+		      <div class="modal-body">
+		        <?php echo Form::open(array('class'=>'form-horizontal')); ?>
+
+		        	<div class="form-group">
+		        		<?php echo Form::label('hari','Hari',array('class'=>'col-sm-4 control-label')); ?> 
+		        		<div class="col-sm-6">
+		        			<select id="hari" name="hari" class="form-control">
+		        				<option></option>
+		        				<option value="Senin">Senin</option>
+		        				<option value="Selasa">Selasa</option>
+		        				<option value="Rabu">Rabu</option>
+		        				<option value="Kamis">Kamis</option>
+		        				<option value="Jumat">Jumat</option>
+		        				<option value="Sabtu">Sabtu</option>
+		        			</select>
+		        		</div>
+		        	</div> 
+
+		        	<div class="form-group">
+		        		<?php echo Form::label('hari','Hari',array('class'=>'col-sm-4 control-label')); ?> 
+		        		<div class="col-sm-6">
+		        			<select id="jam" name="jam" class="form-control">
+		        				<option></option>
+		        				<?php foreach($jam as $row): ?>
+		        					<option value="<?php echo $row->jam_ke; ?>"><?php echo $row->jam_ke; ?></option>
+		        				<?php endforeach; ?>
+		        			</select>
+		        		</div>
+		        	</div> 
+
+		        	<?php echo Bootstrap::horizontal('col-sm-6','col-sm-4')
+		        		->text('dari','Dari Jam','',$errors,array('readonly'=>'readonly')); ?>
+
+
+		        	<?php echo Bootstrap::horizontal('col-sm-6','col-sm-4')
+		        		->text('sampai','Sampai Jam','',$errors,array('readonly'=>'readonly')); ?>
+
+		        <?php echo Form::close(); ?>
+
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-primary" id="simpan">Simpan</button>
+		      </div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+
+
+	<script>
+		$(function(){
+			$(".tambah").click(function(){
+				$("#hari").val('');
+				$("#jam").val('');
+				$("#dari").val('');
+				$("#sampai").val('');
+				$("#myModal2").modal("show");
+			});
+
+			$("#jam").click(function(){
+				var jam=$("#jam").val();
+
+				$.ajax({
+					url:"<?php echo URL::to('admin/tampil_jam'); ?>",
+					type:"POST",
+					data:"jam="+jam,
+					cache:false,
+					success:function(msg){
+						data=msg.split("|");
+						$("#dari").val(data[0]);
+						$("#sampai").val(data[1]);
+					}
+				});
+			});
+
+			$("#simpan").click(function(){
+				var hari=$("#hari").val();
+				var jam=$("#jam").val();
+				var dari=$("#dari").val();
+				var sampai=$("#sampai").val();
+				var mengajar=$("#mengajar").val();
+
+				if(hari==""){
+					alert('pilih hari dulu');
+					$("#hari").focus();
+				}else if(jam==""){
+					alert("pilih jam dulu");
+					$("#jam").focus();
+				}else if(dari==""){
+					alert("pilih jam dulu");
+					$("#jam").focus();
+				}else if(sampai==""){
+					alert("pilih jam dulu");
+					$("#jam").focus();
+				}else{
+					$.ajax({
+						url:"<?php echo URL::to('admin/simpan_jam'); ?>",
+						type:"POST",
+						data:"hari="+hari+"&jam="+jam+"&dari="+dari+"&sampai="+sampai+"&mengajar="+mengajar,
+						cache:false,
+						success:function(html){
+							location.reload();
+						}
+					})
+				}
+			});
+
+			$(".hapus").click(function(){
+				var mengajar=$(this).attr("mengajar");
+				var hari=$(this).attr("hari");
+				var jam=$(this).attr("jam");
+
+				$.ajax({
+					url:"<?php echo URL::to('admin/hapus_jadwal'); ?>",
+					type:"POST",
+					data:"mengajar="+mengajar+"&hari="+hari+"&jam="+jam,
+					cache:false,
+					success:function(html){
+						location.reload();
+					}
+				})
+			})
+		});
+	</script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('template.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

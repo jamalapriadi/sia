@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><?php echo $title; ?></title>
+    <?php echo HTML::style('assets/css/bootstrap.css'); ?>
+
+  </head>
+  <body>
+    <div class="container">
+      <?php $setting=Setting::first();?>
+      <?php echo HTMl::image('uploads/logo/'.$setting->logo_sekolah,'',array('style'=>'width:100px; float:left; margin-right:10px;')); ?>
+
+      <h3><?php echo $setting->nm_sekolah; ?></h3>
+      <p style="line-height:13px;"><?php echo $setting->alamat_sekolah.' , Kec. '.$setting->kecamatan.' - Kab. '.$setting->kabupaten; ?></p>
+      <p style="line-height:13px;">No. Telp : <?php echo $setting->telp_sekolah; ?> -  Fax : <?php echo $setting->fax_sekolah; ?></p>
+
+      <hr>
+
+      <h4 style="text-align:center;">
+        <u><?php echo $title; ?></u>
+      </h4>
+      <?php echo $__env->yieldContent('content'); ?>
+    </div>
+  </body>
+</body>

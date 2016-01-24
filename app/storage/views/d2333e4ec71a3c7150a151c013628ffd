@@ -1,0 +1,58 @@
+<?php $__env->startSection('content'); ?>
+	<legend>Berita</legend>
+
+	<a href="<?php echo URL::to('admin/berita/create'); ?>" class="btn btn-primary">
+		<i class="glyphicon glyphicon-plus"></i>
+		Tambah Berita
+	</a>
+
+	<?php if(Session::has('pesan')): ?>
+		<hr>
+		<?php echo Session::get('pesan'); ?>
+
+	<?php endif; ?>
+
+	<table class="table table-striped" id="contoh">
+		<thead>
+			<tr>
+				<th>No.</th>
+				<th>Kategori</th>
+				<th>Judul</th>
+				<th>Created At</th>
+				<th>Update At</th>
+				<th></th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php $no=0;?>
+			<?php foreach($berita as $row): ?>
+				<?php $no++;?>
+				<tr>
+					<td><?php echo $no; ?></td>
+					<td><?php echo $row->kategori->nm_kategori; ?></td>
+					<td><?php echo $row->judul; ?></td>
+					<td><?php echo $row->created_at; ?></td>
+					<td><?php echo $row->updated_at; ?></td>
+					<td>
+						<a href="<?php echo URL::to('admin/berita/'.$row->id_berita.'/edit'); ?>">
+							<i class="glyphicon glyphicon-edit"></i>
+						</a>
+					</td>
+					<td>
+						<?php echo Form::open(array('url'=>'admin/berita/'.$row->id_berita)); ?>
+
+							<?php echo Form::hidden('_method','DELETE'); ?>
+
+							<?php echo Form::submit('hapus',array('class'=>'btn btn-danger')); ?>
+
+						<?php echo Form::close(); ?>
+
+					</td>
+				</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('template.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,0 +1,14 @@
+<?php $__env->startSection('content'); ?>
+  <legend>Nama Ektstra : <?php echo $ekstra->nm_ekstra; ?></legend>
+
+  <p>Pengampu : <?php echo $ekstra->nip; ?></p>
+
+  <p>
+    <?php echo HTML::image('uploads/ekstra/'.$ekstra->logo_ekstra,'',array('style'=>'width:100px;float:left;')); ?>
+
+    <?php echo $ekstra->keterangan; ?>
+
+  </p>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('template.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

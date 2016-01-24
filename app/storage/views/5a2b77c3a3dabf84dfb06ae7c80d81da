@@ -1,0 +1,89 @@
+<!--Sabtu-->
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th colspan="<?php echo $t+$d+$s+2; ?>"  class="success">Sabtu</th>
+    </tr>
+
+    <tr>
+      <th rowspan='2'>Jam Ke</th>
+      <th rowspan='2'>Hari</th>
+      <th colspan="<?php echo $t; ?>">Kelas 7</th>
+      <th colspan="<?php echo $d; ?>">Kelas 8</th>
+      <th colspan="<?php echo $s; ?>">Kelas 9</th>
+    </tr>
+    <tr>
+      <?php
+      $tujuh=DB::table('kelas')->where('kelas','7')->get();
+      ?>
+      <?php foreach($tujuh as $tj): ?>
+      <td><?php echo $tj->subkelas; ?></td>
+      <?php endforeach; ?>
+
+      <?php
+      $delapan=DB::table('kelas')->where('kelas','8')->get();
+      ?>
+      <?php foreach($delapan as $del): ?>
+      <td><?php echo $del->subkelas; ?></td>
+      <?php endforeach; ?>
+
+      <?php
+      $sem=DB::table('kelas')->where('kelas','9')->get();
+      ?>
+      <?php foreach($sem as $se): ?>
+      <td><?php echo $se->subkelas; ?></td>
+      <?php endforeach; ?>
+    </tr>
+  </thead>
+  <tbody>
+    <?php
+    $jam2=Jam::all();?>
+    <?php foreach($jam2 as $j): ?>
+    <tr>
+      <td><?php echo $j->jam_ke; ?></td>
+      <td><?php echo $j->dari_jam.' - '.$j->sampai_jam; ?></td>
+      <?php foreach($tujuh as $tj): ?>
+      <?php
+      $senin=DB::table('jadwal')->where('hari','Sabtu')
+      ->where('jam_ke',$j->jam_ke)
+      ->where('kd_rombel',$tahun.'-'.$tj->kd_kelas);
+      if($senin->count()>0){
+        foreach($senin->get() as $sen){
+          echo "<td>".$sen->kd_mapel."</td>";
+        }
+      }else{
+        echo "<td>-</td>";
+      }?>
+      <?php endforeach; ?>
+
+      <?php foreach($delapan as $del): ?>
+      <?php
+      $senin=DB::table('jadwal')->where('hari','Sabtu')
+      ->where('jam_ke',$j->jam_ke)
+      ->where('kd_rombel',$tahun.'-'.$del->kd_kelas);
+      if($senin->count()>0){
+        foreach($senin->get() as $sen){
+          echo "<td>".$sen->kd_mapel."</td>";
+        }
+      }else{
+        echo "<td>-</td>";
+      }?>
+      <?php endforeach; ?>
+
+      <?php foreach($sem as $se): ?>
+      <?php
+      $senin=DB::table('jadwal')->where('hari','Sabtu')
+      ->where('jam_ke',$j->jam_ke)
+      ->where('kd_rombel',$tahun.'-'.$se->kd_kelas);
+      if($senin->count()>0){
+        foreach($senin->get() as $sen){
+          echo "<td>".$sen->kd_mapel."</td>";
+        }
+      }else{
+        echo "<td>-</td>";
+      }?>
+      <?php endforeach; ?>
+    </tr>
+    <?php endforeach; ?>
+  </tbody>
+</table>

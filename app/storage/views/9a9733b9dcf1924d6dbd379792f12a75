@@ -1,0 +1,47 @@
+<?php $__env->startSection('content'); ?>
+  <legend>Nilai Harian</legend>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>No.</th>
+        <th>ID Mengajar</th>
+        <th>Rombel</th>
+        <th>Mapel</th>
+        <th>Nilai KKM</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php $no=0;?>
+      <?php foreach($mengajar as $row): ?>
+        <?php $no++;?>
+        <tr>
+          <td><?php echo $no; ?></td>
+          <td><?php echo $row->id_mengajar; ?></td>
+          <td><?php echo $row->kd_rombel; ?></td>
+          <td><?php echo $row->kd_mapel; ?></td>
+          <tD><?php echo $row->nilai_kkm; ?></td>
+          <td>
+            <a href="<?php echo URL::to('guru/'.$row->id_mengajar.'/lihat_nilai_harian'); ?>" class="btn btn-success">
+              Lihat Nilai
+            </a>
+          </td>
+          <td>
+            <a href="<?php echo URL::to('guru/'.$row->id_mengajar.'/history_nilai_harian'); ?>" class="btn btn-primary">
+              History
+            </a>
+          <td>
+            <a href="<?php echo URL::to('guru/'.$row->id_mengajar.'/input_nilai_harian'); ?>" class="btn btn-warning">
+              Input Nilai
+            </a>
+          </td>
+          </tr>
+        <?php endforeach; ?>
+      </tbody>
+    </table>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('template.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

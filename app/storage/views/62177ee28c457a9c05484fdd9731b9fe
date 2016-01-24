@@ -1,0 +1,38 @@
+<?php $__env->startSection('content'); ?>
+	<legend>Jadwal Mengajar</legend>
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th>No.</th>
+				<th>Kelas</th>
+				<th>Tahun Ajaran</th>
+				<th></th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php $no=0;?>
+			<?php foreach($rombel as $row): ?>
+				<?php $no++;?>
+				<tr>
+					<td><?php echo $no; ?></td>
+					<td><?php echo $row->kd_kelas; ?></td>
+					<td><?php echo $row->thn_ajaran; ?></td>
+					<td>
+						<a href="<?php echo URL::to('admin/lihat_jadwal/'.$row->kd_rombel); ?>" class="btn btn-warning">
+							<i class="glyphicon glyphicon-list-alt"></i>
+							Lihat Jadwal
+						</a>
+					</td>
+					<td>
+						<a href="<?php echo URL::to('admin/setting_jadwal/'.$row->kd_rombel); ?>" class="btn btn-primary">
+							<i class="glyphicon glyphicon-th"></i>
+							Setting Jadwal
+						</a>
+					</td>
+				</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('template.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

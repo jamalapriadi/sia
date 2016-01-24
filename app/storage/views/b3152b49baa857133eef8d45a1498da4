@@ -1,0 +1,35 @@
+<hr>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>No.</th>
+			<th>ID Mengajar</th>
+			<th>Mata Pelajaran</th>
+			<th>Nilai KKM</th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php $no=0;?>
+		<?php foreach($mengajar as $row): ?>
+			<?php $no++;?>
+			<tr>
+				<td><?php echo $no; ?></td>
+				<td><?php echo $row->id_mengajar; ?></td>
+				<td><?php echo $row->kd_mapel; ?></td>
+				<td><?php echo $row->nilai_kkm; ?></td>
+				<td>
+					<a href="#" class="edit" mengajar="<?php echo $row->id_mengajar; ?>" mapel="<?php echo $row->kd_mapel; ?>" nilai="<?php echo $row->nilai_kkm; ?>">
+						<i class="glyphicon glyphicon-edit"></i>
+					</a>
+				</td>
+				<td>
+					<a href="#" class="hapus" kode="<?php echo $row->id_mengajar; ?>">
+						<i class="glyphicon glyphicon-trash"></i>
+					</a>
+				</td>
+			</tr>
+		<?php endforeach; ?>
+	</tbody>
+</table>

@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>SMP N 1 Pagerbarang</title>
+		<?php echo HTML::style('assets/css/yeti.css'); ?>
+
+		<?php echo HTML::script('assets/js/jquery-1.8.3.min.js'); ?>
+
+		<?php echo HTML::script('assets/js/bootstrap.js'); ?>
+
+		<style>
+			body{
+				background: url("<?php echo URL::to('assets/img/pt.png'); ?>");
+			}
+			#header{
+				min-height: 220px;
+				width: 100%;
+				background: url("<?php echo URL::to('assets/img/header.jpg'); ?>");
+			}
+			.container{
+				width: 70%;
+				padding: 0px;
+				min-height: 700px;
+				border:1px solid lightgray;
+				background: white;
+			}
+			#isi{
+				padding: 20px;
+			}
+			#footer{
+				min-height: 220px;
+				margin:0 auto;
+				width: 70%;
+				background: url("<?php echo URL::to('assets/img/footer.jpg'); ?>");
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div id="header"></div>
+
+			<!-- menu-->
+			<?php echo $__env->make('web.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+			<!-- end menu-->
+
+			<!--isi-->
+			<div id="isi">
+				<div class="row">
+					<div class="col-md-8">
+						<?php echo $__env->yieldContent('content'); ?>
+
+						<hr>
+						<!--module-->
+						<div class="row">
+							<div class="col-md-3">
+								<a href="<?php echo URl::to('berita'); ?>">
+									<img src="<?php echo URL::to('assets/img/berita.png'); ?>" width="100px;">
+								</a>
+							</div>
+
+							<div class="col-md-3">
+								<a href="<?php echo URL::to('login'); ?>" target="new target">
+									<img src="<?php echo URL::to('assets/img/login.png'); ?>" width="100px;">
+								</a>
+							</div>
+
+							<div class="col-md-3">
+								<a href="<?php echo URL::to('kontak'); ?>">
+									<img src="<?php echo URL::to('assets/img/kontak.png'); ?>" width="100px;">
+								</a>
+							</div>
+						</div>
+
+
+					</div>
+
+					<!--end module-->
+					<div class="col-md-4">
+						<?php echo $__env->make('web.sidebar', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+					</div>
+				</div>
+			</div>
+			<!--end isi-->
+		</div>
+
+		<div style="clear:both"></div>
+		<div id="footer"></div>
+	</body>
+</html>

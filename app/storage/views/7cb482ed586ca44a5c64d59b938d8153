@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Latihan Nilai</title>
+    <?php echo HTML::style('assets/css/bootstrap.css'); ?>
+
+  </head>
+  <body>
+    <div class="container">
+      <legend>Nilai Harian</legend>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th rowspan='3'>NIS</th>
+            <th colspan="12">Jenis Nilai</th>
+          </tr>
+          <tr>
+            <?php foreach($jenis as $row): ?>
+              <td colspan="4"><?php echo $row->kd_jenis; ?></td>
+            <?php endforeach; ?>
+          </tr>
+       </thead>
+       <tbody>
+         <?php foreach($nilai as $n): ?>
+          <tr>
+            <td><?php echo $n->nis; ?></td>
+            <td><?php echo $n->no_urut; ?></td>
+          </tr>
+        <?php endforeach; ?>
+       </tbody>
+     </table>
+    </div>
+  </body>
+</html>

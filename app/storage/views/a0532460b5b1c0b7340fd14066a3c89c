@@ -1,0 +1,14 @@
+<?php echo Form::open(array('url'=>'admin/simpan_rombel','method'=>'post','class'=>'form-horizontal')); ?>
+
+	<?php echo Bootstrap::horizontal('col-sm-8','col-sm-3')
+		->text('nis','NIS','',$errors,array('autofocus')); ?>
+
+
+	<?php echo Bootstrap::horizontal('col-sm-8','col-sm-3')
+		->text('nama','Nama','',$errors,array('readonly'=>'readonly')); ?>
+
+
+	<?php echo Bootstrap::horizontal('col-sm-8','col-sm-3')
+		->text('jk','JK','',$errors,array('readonly'=>'readonly')); ?>
+
+<?php echo Form::close(); ?>

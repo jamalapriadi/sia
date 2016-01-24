@@ -1,0 +1,61 @@
+<?php $__env->startSection('content'); ?>
+  <legend>Data Ekstrakurikuler</legend>
+  <a href="<?php echo URL::to('admin/ekstrakurikuler/create'); ?>" class="btn btn-primary">
+    <i class="glyphicon glyphicon-plus"></i>
+    Tambah Ekstra
+  </a>
+
+  <?php if(Session::has('pesan')): ?>
+    <hr>
+    <?php echo Session::get('pesan'); ?>
+
+  <?php endif; ?>
+
+  <table class="table table-striped" id="contoh">
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>Logo</th>
+        <th>Nama Ekstra</th>
+        <th>Pengampu</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php $no=0;?>
+      <?php foreach($ekstra as $row): ?>
+        <?php $no++;?>
+        <tr>
+          <td><?php echo $no; ?></td>
+          <td><?php echo HTML::image('uploads/ekstra/'.$row->logo_ekstra,'',array('style'=>'width:100px;')); ?></td>
+          <td><?php echo $row->nm_ekstra; ?></td>
+          <td><?php echo $row->nip; ?></td>
+          <td>
+            <a class="btn btn-default" href="<?php echo URL::to('admin/ekstrakurikuler/'.$row->id_ekstra); ?>">
+              <i class="glyphicon glyphicon-list-alt"></i>
+            </a>
+          </td>
+          <td>
+            <a class="btn btn-success" href="<?php echo URL::to('admin/ekstrakurikuler/'.$row->id_ekstra.'/edit'); ?>">
+              <i class="glyphicon glyphicon-edit"></i>
+            </a>
+          </td>
+          <td>
+            <?php echo Form::open(array('url'=>'admin/ekstrakurikuler/'.$row->id_ekstra)); ?>
+
+              <?php echo Form::hidden('_method','DELETE'); ?>
+
+              <?php echo Form::submit('hapus',array('class'=>'btn btn-danger')); ?>
+
+            <?php echo Form::close(); ?>
+
+          </td>
+        </tr>
+      <?php endforeach; ?>
+    </tbody>
+  </table>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('template.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

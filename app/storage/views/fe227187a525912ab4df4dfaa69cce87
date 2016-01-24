@@ -1,0 +1,32 @@
+<?php $__env->startSection('content'); ?>
+  <legend>Upload Materi</legend>
+  <?php echo Form::open(array('url'=>'guru/materi','method'=>'post',
+  'class'=>'form-horizontal','files'=>true)); ?>
+
+    <?php echo Bootstrap::horizontal('col-sm-4','col-sm-2')
+      ->text('judul','Judul Materi','',$errors); ?>
+
+
+    <?php echo Bootstrap::horizontal('col-sm-4','col-sm-2')
+      ->file('file','Materi'); ?>
+
+
+    <div class="form-group well">
+      <?php echo Form::label('','',array('class'=>'col-sm-2 control-label')); ?>
+
+      <div class="col-sm-4">
+        <button class="btn btn-primary">
+          <i class="glyphicon glyphicon-upload"></i>
+          Uploads
+        </button>
+
+        <a href="<?php echo URL::to('guru/materi'); ?>" class="btn btn-default">
+          Kembali
+        </a>
+      </div>
+    </div>
+  <?php echo Form::close(); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('template.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,0 +1,78 @@
+<?php $__env->startSection('content'); ?>
+	<legend>Data Guru</legend>
+
+	<div class="row">
+		<div class="col-md-6">
+			<a href="<?php echo URL::to('admin/guru/create'); ?>" class="btn btn-primary">
+				<i class="glyphicon glyphicon-plus"></i>
+				Tambah Pegawai
+			</a>
+
+			<a href="<?php echo URL::to('admin/import_guru'); ?>" class="btn btn-success">
+				<i class="glyphicon glyphicon-import"></i>
+				Import
+			</a>
+		</div>
+	</div>
+
+	<?php if(Session::has('pesan')): ?>
+		<?php echo Session::get('pesan'); ?>
+
+	<?php endif; ?>
+
+	<table class="table table-striped" id="contoh">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>NIP</th>
+				<th>NUPTK</th>
+				<th>Nama</th>
+				<th>Tempat / Tgl. Lahir</th>
+				<th>JK</th>
+				<th>Pendidikan</th>
+				<th>Tahun</th>
+				<th>Mulai Kerja</th>
+				<th></th>
+				<th></th>
+				<th></th>
+			</tr>
+		</thead>
+		<?php $no=0; ?>
+		<?php foreach($guru as $row): ?>
+		<?php $no++;?>
+			<tr>
+				<td><?php echo $no; ?></td>
+				<td><?php echo $row->nip; ?></td>
+				<td><?php echo $row->nuptk; ?></td>
+				<td><?php echo $row->nm_guru; ?></td>
+				<td><?php echo $row->tmp_lahir." / ".date('d-m-Y',strtotime($row->tgl_lahir)); ?></td>
+				<td><?php echo $row->jk; ?></td>
+				<td><?php echo $row->pend_terakhir; ?></td>
+				<td><?php echo $row->tahun; ?></td>
+				<td><?php echo date('d-m-Y',strtotime($row->mulai_kerja)); ?></td>
+				<td>
+					<a href="<?php echo URL::to('admin/guru/'.$row->nip); ?>">
+						<i class="glyphicon glyphicon-list-alt"></i>
+					</a>
+				</td>
+				<td>
+					<a href="<?php echo URL::to('admin/guru/'.$row->nip.'/edit'); ?>">
+						<i class="glyphicon glyphicon-edit"></i>
+					</a>
+				</td>
+				<td>
+					<?php echo Form::open(array('url'=>'admin/guru/'.$row->nip)); ?>
+
+						<?php echo Form::hidden('_method','DELETE'); ?>
+
+						<?php echo Form::submit('hapus',array('class'=>'btn btn-danger')); ?>
+
+					<?php echo Form::close(); ?>
+
+				</td>
+			</tr>
+		<?php endforeach; ?>
+	</table>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('template.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

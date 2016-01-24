@@ -1,0 +1,223 @@
+<?php $__env->startSection('content'); ?>
+	<script>
+		$(function(){
+			function loadMengajar(){
+				var nip=$("#nip").val();
+
+				$.ajax({
+					url:"<?php echo URL::to('admin/cari_mengajar'); ?>",
+					type:"GET",
+					data:"nip="+nip,
+					cache:false,
+					success:function(html){
+						$("#tampil").html(html);
+					}
+				});
+			}
+
+			$("#nip").click(function(){
+				var nip=$("#nip").val();
+
+				$.ajax({
+					url:"<?php echo URL::to('admin/cari_nip'); ?>",
+					type:"GET",
+					data:"nip="+nip,
+					cache:false,
+					success:function(html){
+						$("#nama").val(html);
+						$("#pesan").html('');
+						loadMengajar();
+					}
+				});
+			});
+
+			$("#tambah").click(function(){
+				var nip=$("#nip").val();
+				var rombel=$("#rombel").val();
+				var mapel=$("#mapel").val();
+				var nilai=$("#nilai").val();
+
+				if(""==nip){
+					alert("Pilih Nip Guru Terlebih dahulu");
+					$("#nip").focus();
+				}else if(""==rombel){
+					alert("Pilih Rombel Terlebih dahulu");
+					$("#rombel").focus();
+				}else if(""==mapel){
+					alert("Pilih Mapel Terlebih dahulu");
+					$("#mapel").focus();
+				}else if(""==nilai){
+					alert("Masukkan Nilai Terlebih dahulu");
+					$("#nilai").focus();
+				}else{
+					$.ajax({
+						url:"<?php echo URL::to('admin/simpan_mengajar'); ?>",
+						type:"POST",
+						data:"rombel="+rombel+"&nip="+nip+"&mapel="+mapel+"&nilai="+nilai,
+						cache:false,
+						success:function(html){
+							$("#rombel").val('');
+							$("#mapel").val('');
+							$("#nilai").val('');
+							$("#pesan").html(html);
+							loadMengajar();
+						}
+					})
+				}
+			});
+
+			$(".hapus").live("click",function(){
+				var kode=$(this).attr('kode');
+
+				$("#idhapus").val(kode);
+				$("#myModal").modal("show");
+			});
+
+			$("#konfirmasi").click(function(){
+				var kode=$("#idhapus").val();
+
+				$.ajax({
+					url:"<?php echo URL::to('admin/hapus_mengajar'); ?>",
+					type:"POST",
+					data:"kode="+kode,
+					cache:false,
+					success:function(html){
+						$("#myModal").modal("hide");
+						$("#pesan").html(html);
+						loadMengajar();
+					}
+				});
+			});
+
+			$(".edit").live("click",function(){
+				var mengajar=$(this).attr("mengajar");
+				var nilai=$(this).attr("nilai");
+
+				$("#idmengajar").val(mengajar);
+				$("#idnilai").val(nilai);
+
+				$("#myModal2").modal("show");
+			});
+
+			$("#update").click(function(){
+				var mengajar=$("#idmengajar").val();
+				var nilai=$("#idnilai").val();
+
+				$.ajax({
+					url:"<?php echo URL::to('admin/update_nilai'); ?>",
+					type:"POST",
+					data:"mengajar="+mengajar+"&nilai="+nilai,
+					cache:false,
+					success:function(html){
+						$("#myModal2").modal("hide");
+						$("#pesan").html(html);
+						loadMengajar();
+					}
+				})
+			})
+		});
+	</script>
+	<legend>Tambah Data Mengajar</legend>
+
+	<?php if(Session::has('pesan')): ?>
+		<?php echo Session::get('pesan'); ?>
+
+	<?php endif; ?>
+
+	<div class="form-horizontal">
+		<div class="form-group">	
+			<?php echo Form::label('guru','NIP Guru',array('class'=>'col-sm-2')); ?>
+
+			<div class="col-sm-3">
+				<select name="nip" id="nip" class="form-control">
+					<option></option>
+					<?php foreach($guru as $row): ?>
+						<option value="<?php echo $row->nip; ?>"><?php echo $row->nip; ?></option>
+					<?php endforeach; ?>
+				</select>
+			</div>
+			<?php echo $errors->first('nip'); ?>
+
+		</div>
+
+		<div class="form-group">	
+			<?php echo Form::label('guru','Nama Guru',array('class'=>'col-sm-2')); ?>
+
+			<div class="col-sm-3">
+				<input type="text" id="nama" readonly="readonly" class="form-control">
+			</div>
+		</div>
+
+		<hr>
+
+		<div class="row" style="margin-left:3px;">
+			<div class="col-sm-3" style="margin-right:10px;">
+				<div class="form-group">
+				    <label for="exampleInputEmail1">Rombel</label>
+				    <select name="rombel" id="rombel" class="form-control" required="required">
+						<option></option>
+						<?php foreach($rombel as $row): ?>
+							<option value="<?php echo $row->kd_rombel; ?>"><?php echo $row->kd_rombel; ?></option>
+						<?php endforeach; ?>
+					</select>
+				</div>
+			</div>
+
+			<div class="col-sm-3" style="margin-right:10px;">
+				<div class="form-group">
+				    <label for="exampleInputEmail1">Mata Pelajaran</label>
+				    <select name="mapel" id="mapel" class="form-control" required="required">
+						<option></option>
+						<?php foreach($mapel as $row): ?>
+							<option value="<?php echo $row->kd_mapel; ?>"><?php echo $row->nm_mapel; ?></option>
+						<?php endforeach; ?>
+					</select>
+				</div>
+			</div>
+
+			<div class="col-sm-2" style="margin-right:10px;">
+				<div class="form-group">
+				    <label for="exampleInputEmail1">Nilai KKM</label>
+				    <input type="number" id="nilai" required="required" name="nilai" class="form-control">
+				</div>
+			</div>
+
+			<div class="col-sm-2" style="margin-right:10px;">
+				<div class="form-group">
+				    <button id="tambah" class="btn btn-primary" style="margin-top:20px;">
+				    	<i class="glyphicon glyphicon-plus"></i>
+				    	Tambahkan
+				    </button>
+				</div>
+			</div>
+		</div>
+
+		<div id="pesan"></div>
+
+		<div id="tampil"></div>
+
+	</div>
+
+
+	<!-- Modal -->
+		<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		        <h4 class="modal-title">Konfirmasi</h4>
+		      </div>
+		      <div class="modal-body">
+		        <input type="hidden" id="idmengajar">
+		        Nilai KKM :
+		        <input type="number" id="idnilai" class="form-control">
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-primary" id="update">Update</button>
+		      </div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('template.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

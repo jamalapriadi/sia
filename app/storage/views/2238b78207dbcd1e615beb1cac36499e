@@ -1,0 +1,57 @@
+<?php $__env->startSection('content'); ?>
+  <legend>Gallery</legend>
+  <a href="<?php echo URL::to('admin/gallery/create'); ?>" class="btn btn-primary">
+    <i class="glyphicon glyphicon-plus"></i>
+    Tambah Gallery
+  </a>
+
+  <?php if(Session::has('pesan')): ?>
+    <hr>
+    <?php echo Session::get('pesan'); ?>
+
+  <?php endif; ?>
+
+  <table class="table table-striped" id="contoh">
+    <thead>
+      <tr>
+        <th>No.</th>
+        <th>Nama Album</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php $no=0;?>
+      <?php foreach($album as $row): ?>
+        <?php $no++;?>
+        <tr>
+          <td><?php echo $no; ?></td>
+          <td><?php echo $row->nm_album; ?></td>
+          <td>
+            <a href="<?php echo URL::to('admin/gallery/'.$row->id_album.'/tambahfoto'); ?>" class="btn btn-success">
+              <i class="glyphicon glyphicon-film"></i>
+            </a>
+          </td>
+          <td>
+            <a href="<?php echo URL::to('admin/gallery/'.$row->id_album.'/edit'); ?>" class="btn btn-warning">
+              <i class="glyphicon glyphicon-edit"></i>
+            </a>
+          </td>
+          <td>
+            <?php echo Form::open(array('url'=>'admin/gallery/'.$row->id_album)); ?>
+
+              <?php echo Form::hidden('_method','DELETE'); ?>
+
+              <?php echo Form::submit('Hapus',array('class'=>'btn btn-danger')); ?>
+
+            <?php echo Form::close(); ?>
+
+          </td>
+        </tr>
+      <?php endforeach; ?>
+    </tbody>
+  </table>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('template.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

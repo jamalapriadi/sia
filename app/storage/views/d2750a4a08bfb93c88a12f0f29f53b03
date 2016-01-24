@@ -1,0 +1,12 @@
+<?php $__env->startSection('content'); ?>
+	<legend>Tambah Data Siswa</legend>
+
+	<?php echo Form::open(array('url'=>'siswa','method'=>'post','class'=>'form-horizontal')); ?>
+
+		<?php echo Bootstrap::horizontal('col-sm-4','col-sm-2')
+			->text('nis','Nis','',$errors); ?>
+
+	<?php echo Form::close(); ?>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('template.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

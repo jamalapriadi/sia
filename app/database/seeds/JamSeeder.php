@@ -1,0 +1,45 @@
+<?php
+class JamSeeder extends Seeder{
+  public function run(){
+    DB::table('jam_pelajaran')->delete();
+
+    $data=array(
+      array(
+        'jam_ke'=>'1',
+        'dari_jam'=>'07:00:00',
+        'sampai_jam'=>'07:40:00'
+      ),
+      array(
+        'jam_ke'=>'2',
+        'dari_jam'=>'07:40:00',
+        'sampai_jam'=>'08:20:00'
+      ),
+      array(
+        'jam_ke'=>'3',
+        'dari_jam'=>'08:20:00',
+        'sampai_jam'=>'09:00:00'
+      ),
+      array(
+        'jam_ke'=>'4',
+        'dari_jam'=>'09:00:00',
+        'sampai_jam'=>'09:40:00'
+      ),
+      array(
+        'jam_ke'=>'5',
+        'dari_jam'=>'10:00:00',
+        'sampai_jam'=>'10:40:00'
+      ),
+      array(
+        'jam_ke'=>'6',
+        'dari_jam'=>'10:40:00',
+        'sampai_jam'=>'11:20:00'
+      ),
+      array(
+        'jam_ke'=>'7',
+        'dari_jam'=>'11:20:00',
+        'sampai_jam'=>'12:00:00'
+      )
+    );
+    DB::table('jam_pelajaran')->insert($data);
+  }
+}

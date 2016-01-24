@@ -1,0 +1,36 @@
+<?php $__env->startSection('content'); ?>
+  <legend>Ganti Password</legend>
+  <?php if(Session::has('pesan')): ?>
+    <?php echo Session::get('pesan'); ?>
+
+  <?php endif; ?>
+
+  <?php echo Form::open(array('url'=>'guru/update_password','method'=>'POST','class'=>'form-horizontal')); ?>
+
+    <?php echo Bootstrap::horizontal('col-sm-4','col-sm-2')
+      ->password('lama','Password Lama',$errors); ?>
+
+
+    <?php echo Bootstrap::horizontal('col-sm-4','col-sm-2')
+      ->password('password','Password Baru',$errors); ?>
+
+
+    <?php echo Bootstrap::horizontal('col-sm-4','col-sm-2')
+      ->password('password_confirmation','Konfirmasi Password',$errors); ?>
+
+
+    <div class="form-group well">
+      <?php echo Form::label('','',array('class'=>'col-sm-2 control-label')); ?>
+
+      <div class="col-sm-4">
+        <button class="btn btn-primary">
+          <i class="glyphicon glyphicon-edit"></i>
+          Update Password
+        </button>
+      </div>
+    </div>
+  <?php echo Form::close(); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('template.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

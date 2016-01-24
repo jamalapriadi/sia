@@ -1,0 +1,29 @@
+<?php $__env->startSection('content'); ?>
+  <p>Kelas : <?php echo $rombel->kd_kelas; ?></p>
+  <p>Wali : <?php echo $rombel->guru->nm_guru; ?></p>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>No.</th>
+        <th>NIS</th>
+        <th>Nama</th>
+        <th>JK</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php $no=0;?>
+      <?php foreach($siswa as $row): ?>
+        <?php $no++;?>
+        <tr>
+          <td><?php echo $no; ?></td>
+          <td><?php echo $row->nis; ?></td>
+          <td><?php echo $row->nm_siswa; ?></td>
+          <td><?php echo $row->jk; ?></td>
+        </tr>
+      <?php endforeach; ?>
+    </tbody>
+  </table>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('template.laporan', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

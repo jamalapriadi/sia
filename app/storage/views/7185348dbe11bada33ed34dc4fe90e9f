@@ -1,0 +1,157 @@
+<?php $__env->startSection('content'); ?>
+	<div class="well">
+		<legend>Tambah Data Guru</legend>
+		<?php if(Session::has('pesan')): ?>
+			<?php echo Session::get('pesan'); ?>
+
+		<?php endif; ?>
+
+		<?php echo Form::model($guru,array('url'=>route('admin.guru.update',['guru'=>$guru->nip]),'method'=>'PUT','class'=>'form-horizontal','files'=>true)); ?>
+
+			<div class="form-group">
+				<?php echo Form::label('nip','NIP / NIPY',array('class'=>'col-lg-2 control-label')); ?>
+
+				<div class="col-lg-4">
+					<?php echo Form::text('nip',$guru->nip,array('class'=>'form-control','readonly'=>'readonly')); ?>
+
+				</div>
+				<?php echo $errors->first('nip'); ?>
+
+			</div>
+
+			<div class="form-group">
+				<?php echo Form::label('email','Email',array('class'=>'col-lg-2 control-label')); ?>
+
+				<div class="col-lg-4">
+					<?php echo Form::email('email',$guru->email,array('class'=>'form-control','readonly'=>'readonly')); ?>
+
+				</div>
+				<?php echo $errors->first('email'); ?>
+
+			</div>
+
+			<div class="form-group">
+				<?php echo Form::label('nuptk','NUPTK',array('class'=>'col-lg-2 control-label')); ?>
+
+				<div class="col-lg-4">
+					<?php echo Form::text('nuptk',$guru->nuptk,array('class'=>'form-control')); ?>
+
+				</div>
+				<?php echo $errors->first('nuptk'); ?>
+
+			</div>
+
+			<div class="form-group">
+				<?php echo Form::label('nama','Nama Guru',array('class'=>'col-lg-2 control-label')); ?>
+
+				<div class="col-lg-4">
+					<?php echo Form::text('nama',$guru->nm_guru,array('class'=>'form-control')); ?>
+
+				</div>
+				<?php echo $errors->first('nama'); ?>
+
+			</div>
+
+			<div class="form-group">
+				<?php echo Form::label('tempat','Tempat Lahir',array('class'=>'col-lg-2 control-label')); ?>
+
+				<div class="col-lg-4">
+					<?php echo Form::text('tempat',$guru->tmp_lahir,array('class'=>'form-control')); ?>
+
+				</div>
+				<?php echo $errors->first('tempat'); ?>
+
+			</div>
+
+			<div class="form-group">
+				<?php echo Form::label('tanggal','Tanggal Lahir',array('class'=>'col-lg-2 control-label')); ?>
+
+				<div class="col-lg-4">
+					<input type="text" id="tanggal" value="<?php echo date('d-m-Y',strtotime($guru->tgl_lahir)); ?>" class="form-control" name="tanggal">
+				</div>
+				<?php echo $errors->first('tanggal'); ?>
+
+			</div>
+
+			<div class="form-group">
+				<?php echo Form::label('jk','JK',array('class'=>'col-lg-2 control-label')); ?>
+
+				<div class="col-lg-4">
+					<select name="jk" class="form-control">
+						<option value="<?php echo $guru->jk; ?>"><?php echo $guru->jk; ?></option>
+						<option value="L">L</option>
+						<option value="P">P</option>
+					</select>
+				</div>
+				<?php echo $errors->first('jk'); ?>
+
+			</div>
+
+			<div class="form-group">
+				<?php echo Form::label('pendidikan','Pendidikan Terakhir',array('class'=>'col-lg-2 control-label')); ?>
+
+				<div class="col-lg-4">
+					<?php echo Form::text('pendidikan',$guru->pend_terakhir,array('class'=>'form-control')); ?>
+
+				</div>
+				<?php echo $errors->first('pendidikan'); ?>
+
+			</div>
+
+			<div class="form-group">
+				<?php echo Form::label('tahun','tahun',array('class'=>'col-lg-2 control-label')); ?>
+
+				<div class="col-lg-4">
+					<?php echo Form::text('tahun',$guru->tahun,array('class'=>'form-control')); ?>
+
+				</div>
+				<?php echo $errors->first('tahun'); ?>
+
+			</div>
+
+			<div class="form-group">
+				<?php echo Form::label('mulai','Mulai Kerja',array('class'=>'col-lg-2 control-label')); ?>
+
+				<div class="col-lg-4">
+					<input type="text" id="tanggal2" value="<?php echo date('d-m-Y',strtotime($guru->mulai_kerja)); ?>" name="mulai" class="form-control">
+				</div>
+				<?php echo $errors->first('mulai'); ?>
+
+			</div>
+
+			<div class="form-group">
+				<?php echo Form::label('foto','Foto',array('class'=>'col-lg-2 control-label')); ?>
+
+				<div class="col-lg-4">
+					<img src="<?php echo URL::to('uploads/guru/'.$guru->foto); ?>" style="max-height:200px;">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<?php echo Form::label('','',array('class'=>'col-lg-2 control-label')); ?>
+
+				<div class="col-lg-4">
+					<?php echo Form::file('foto'); ?>
+
+				</div>
+			</div>
+
+			<hr>
+			<div class="form-group">
+				<?php echo Form::label('','',array('class'=>'col-lg-2 control-label')); ?>
+
+				<div class="col-lg-4">
+					<button class="btn btn-primary">
+						<i class="glyphicon glyphicon-saved"></i>
+						Update
+					</button>
+
+					<a href="<?php echo URL::to('admin/guru'); ?>" class="btn btn-default">Kembali</a>
+				</div>
+			</div>
+
+		<?php echo Form::close(); ?>
+
+	</div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('template.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

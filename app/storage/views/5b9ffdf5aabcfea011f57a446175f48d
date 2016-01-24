@@ -1,0 +1,58 @@
+<?php $__env->startSection('content'); ?>
+	<legend>Tambah Nilai KKM</legend>
+
+	<?php if(Session::has('pesan')): ?>
+		<?php echo Session::get('pesan'); ?>
+
+	<?php endif; ?>
+
+	<?php echo Form::open(array('url'=>'admin/kkm','method'=>'post','class'=>'form-horizontal')); ?>
+
+		<div class="form-group">
+			<label for="" class="col-sm-2 control-label">Tahun Ajaran</label>
+			<div class="col-sm-4">
+				<input type="text" readonly="readonly" name="tahun" value="<?php echo $setting->dari_tahun.'-'.$setting->sampai_tahun; ?>" class="form-control">
+			</div>
+			<?php echo $errors->first('tahun'); ?>
+
+		</div>
+
+		<div class="form-group">
+			<?php echo Form::label('mapel','Mata Pelajaran',array('class'=>'col-sm-2 control-label')); ?>
+
+			<div class="col-sm-4">
+				<select name="mapel" class="form-control">
+					<option>--Pilih Mapel--</option>
+					<?php foreach($mapel as $row): ?>
+						<option value="<?php echo $row->kd_mapel; ?>"><?php echo $row->nm_mapel; ?></option>
+					<?php endforeach; ?>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="" class="col-sm-2 control-label">Nilai KKM</label>
+			<div class="col-sm-4">
+				<input type="number" required="required" min="1" max="10" name="nilai" class="form-control">
+			</div>
+			<?php echo $errors->first('nilai'); ?>
+
+		</div>
+
+		<div class="form-group well">
+			<?php echo Form::label('','',array('class'=>'col-sm-2 control-label')); ?>
+
+			<div class="col-sm-4">
+				<button class="btn btn-primary">
+					<i class="glyphicon glyphicon-saved"></i>
+					Simpan
+				</button>
+
+				<a href="<?php echo URL::to('admin/kkm'); ?>" class="btn btn-default">Kembali</a>
+			</div>
+		</div>
+	<?php echo Form::close(); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('template.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

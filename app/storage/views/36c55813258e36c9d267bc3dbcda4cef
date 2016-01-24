@@ -1,0 +1,13 @@
+<?php $__env->startSection('content'); ?>
+	<legend>Sukses</legend>
+
+	<?php if(Session::has('pesan')): ?>
+		<div class="alert alert-success">
+			<?php echo Session::get('pesan'); ?>
+
+		</div>
+	<?php endif; ?>
+
+	
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('template.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

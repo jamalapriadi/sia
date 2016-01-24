@@ -1,0 +1,49 @@
+<?php $__env->startSection('content'); ?>
+  <legend>Nilai Ujian</legend>
+
+  <?php if(Session::has('pesan')): ?>
+    <?php echo Session::get('pesan'); ?>
+
+  <?php endif; ?>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>No.</th>
+        <th>Rombel</th>
+        <th></th>
+        <th></th>
+        <th>
+
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php $no=0;?>
+      <?php foreach($jadwal as $row): ?>
+        <?php $no++;?>
+        <tr>
+          <td><?php echo $no; ?></td>
+          <td><?php echo $row->kd_rombel; ?></td>
+          <td>
+            <a href="<?php echo URL::to('guru/'.$row->kd_rombel.'/lihat_nilai_harian'); ?>" class="btn btn-success">
+              Lihat Nilai
+            </a>
+          </td>
+          <td>
+            <a href="<?php echo URL::to('guru/'.$row->kd_rombel.'/history_nilai_harian'); ?>" class="btn btn-primary">
+              History Nilai
+            </a>
+          </td>
+          <td>
+            <a href="<?php echo URL::to('guru/'.$row->kd_rombel.'/input_nilai_harian'); ?>" class="btn btn-warning">
+              Input Nilai
+            </a>
+          </td>
+          </tr>
+        <?php endforeach; ?>
+      </tbody>
+    </table>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('template.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

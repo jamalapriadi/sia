@@ -1,0 +1,48 @@
+<?php $__env->startSection('content'); ?>
+  <legend>Data Banner</legend>
+  <?php if(Session::has('pesan')): ?>
+    <?php echo Session::get('pesan'); ?>
+
+  <?php endif; ?>
+
+  <?php echo Form::open(array('url'=>'admin/banner','method'=>'post','class'=>'form-horizontal','files'=>true)); ?>
+
+    <div class="form-group">
+      <div class="col-sm-4">
+        <input type="file" multiple="multiple" name="file[]" class="form-control">
+      </div>
+      <div class="col-sm-4">
+
+        <button class="btn btn-primary">
+          <i class="glyphicon glyphicon-upload"></i>
+          Upload</button>
+      </div>
+    </div>
+  <?php echo Form::close(); ?>
+
+
+  <div class="row">
+    <?php foreach($banner as $row): ?>
+      <div class='col-sm-2' style="margin-right:10px;">
+        <div class="thumbnail">
+          <?php echo HTML::image('uploads/banner/'.$row->foto,'',array('style'=>'width:100px;')); ?>
+
+          <div class="caption">
+            <center>
+              <?php echo Form::open(array('url'=>'admin/banner/'.$row->id_banner)); ?>
+
+                <?php echo Form::hidden('_method','DELETE'); ?>
+
+                <?php echo Form::submit('hapus',array('class'=>'btn btn-danger')); ?>
+
+              <?php echo Form::close(); ?>
+
+            </center>
+          </div>
+        </div>
+      </div>
+    <?php endforeach; ?>
+  </div>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('template.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Pendaftaran</title>
+	{{HTML::style('assets/css/bootstrap.css')}}
+	{{HTML::script('assets/js/jquery-1.10.2.js')}}
+	{{HTML::script('assets/js/bootstrap.js')}}
+
+	<style>
+		body { font-family: 'open_sansregular', arial, sans-serif;}
+		b,
+		strong { font-family: 'open_sanssemibold', arial, sans-serif }
+		.clearfix { clear: both }
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6,
+		a {
+		    font-family: 'open_sanssemibold', arial, sans-serif;
+		    font-weight: regular;
+		}
+		#header{
+			background: #099d07;
+    		color: #fff;
+    		margin-bottom: 3px;
+		}
+		#top-container {
+		    border-bottom: 1px solid #008e00;
+		    padding-top: 5px;
+		    font-size: 10px;
+		    height: 35px;
+		    font-family: 'open_sansregular', arial, sans-serif;
+		}
+
+		#top-container #google_language_translator { min-height: 0px }
+		#top-menu ul#menu-top-menu {
+		    display: block;
+		    list-style: none;
+		    text-align: right;
+		    margin-top: 5px;
+		}
+		#top-menu ul#menu-top-menu li {
+		    display: inline;
+		    margin-left: 5px;
+		}
+		#top-menu ul#menu-top-menu li a { color: white }
+		#lang ul,
+		#lang li {
+		    list-style: none;
+		    padding: 0;
+		    display: inline-block;
+		}
+		#lang li {
+		    border-right: 1px solid #fff;
+		    padding-right: 4px;
+		}
+		#lang li:last-child { border-right: none }
+		#lang li a { color: #fff }
+		#header-container {
+		    border-top: 1px solid #1aac1b;
+		    padding: 5px 0;
+		}
+		#header-container img{
+			max-height: 75px;
+		}
+
+		//#head-logo { text-align: center }
+		#head-logo h1 { display: none }
+		#tagline {
+		    text-align: right;
+		    padding-top: 5px;
+		    font-size: 11px;
+		}
+		#tagline b { font-size: 14px }
+		#header-navigation { background: #015500 }
+		#header-navigation nav {
+		    border: none;
+		    background: none;
+		    color: #fff;
+		    min-height: 40px;
+		    margin-bottom: 0px;
+		}
+		#header-navigation nav ul.nav.navbar-nav li a {
+		    color: #fff;
+		    font-size: 12px;
+		    padding: 10px 9px;
+		    font-family: 'open_sansregular', arial, sans-serif;
+		}
+		#header-navigation .dropdown-menu { background-color: #377084 }
+		#header-navigation .navbar-default .navbar-nav>.open>a,
+		#header-navigation .navbar-default .navbar-nav>.open>a:hover,
+		#header-navigation .navbar-default .navbar-nav>.open>a:focus { background-color: #377084 }
+		#head-searchform input {
+		    display: inline-block;
+		    background: #0d660c;
+		    border: 1px solid #499847;
+		    padding: 2px 5px;
+		    height: 23px;
+		    font-size: 14px;
+		    color: #fff;
+		    width: 82%;
+		}
+		#head-searchform button { padding: 1px 6px }
+
+		#slide{
+			margin-bottom: 30px;
+		}
+
+		#pmb-content {
+		    border: 1px solid #ccc;
+		    padding: 10px 20px 10px 20px;
+		    height: 385px;
+		}
+		#pmb-content h1 {
+		    margin-top: 0;
+		    font-size: 18px;
+		}
+		#pmb-content p { font-weight: normal }
+		#pmb-content hr {
+		    margin: 10px 0;
+		    border-top: 2px solid #eee;
+		}
+		#pmb-content-2 {
+		    padding: 0px 20px 10px 20px;
+		    border: 1px solid #Ccc;
+		    height: 630px;
+		}
+
+		#admission-info a .adm-content {
+		    font-size: 18px;
+		    color: #333;
+		    padding-top: 10px;
+		}
+		#admission-info a:hover { text-decoration: none }
+		#admission-info a .adm-content p {
+		    font-size: 10px;
+		    font-weight: normal;
+		    margin-top: 2px;
+		}
+
+		#pengumuman a{
+			font-size: 14px;
+		    color: #333;
+		    padding-top: 10px;
+		}
+
+		fieldset {
+		  	padding: 1em;
+		  	font:80%/1 sans-serif;
+		  	border:10x;
+		}
+
+		fieldset legend{
+			font-size: 14px;
+		}
+
+		#footer {
+		    background: #025400;
+		    padding-top: 20px;
+		    height: 170px;
+		}
+
+		#footer h4{
+			color: #fff;
+		}
+
+		#footer p{
+			color: #fff;
+		}
+
+		#footer legend{
+			color: #fff;
+		}
+	</style>
+</head>
+<body>
+	<div id="header">
+		<div id="top-container">
+			<div class="container">
+				<div id="top-menu" class="list-inline">
+					<ul id="menu-top-menu" class="menu">
+						<li id="menu-item-2013" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2013"><a href="#">MTs ASY-SYAFI'IYYAH JATIBARANG</a></li>
+						<li id="menu-item-2012" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2012"><a href="#">Contact</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>	
+
+		<div id="header-container">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-4">
+						<div id="head-logo">
+							{{HTML::image('assets/img/header.png')}}
+							<h1>MTS</h1>
+						</div>
+					</div>
+
+					<div class='col-md-5 col-sm-5 col-md-offset-3 col-sm-offset-3 hidden-sm hidden-xs'>
+						<div id='tagline'>
+							<p>Bismillah membangun generasi khaira ummah<br/><b>Your Gateway to Global Network</b></p>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id='header-navigation'>
+			<div class="container">
+				@include("template.depan.menu")
+			</div>
+		</div>
+	</div>
+	
+	
+	@yield('content')
+	
+	<br>
+	<div id="footer">
+		<div class="container">
+			<div class="row">
+                <div class="col-sm-2">
+                    <legend>Follow Us</legend>
+                    
+                    {{HTML::image('assets/img/fb.png','',array('style'=>'width:30px; margin-right:5px;'))}}
+					{{HTML::image('assets/img/twitter.png','',array('style'=>'width:30px; margin-right:5px;'))}}
+					{{HTML::image('assets/img/youtube.png','',array('style'=>'width:30px; margin-right:5px;'))}}
+                </div>
+
+                <div class="col-sm-6">
+                    
+                </div>
+
+                <div class="col-sm-4">
+                    <h4>MTs ASY-SYAFI'IYYAH JATIBARANG</h4>
+                    <p><i class="glyphicon glyphicon-road"></i>&nbsp;
+                    Jl. Raya Timur No. 10 Jatibarang</p>
+                    <p>
+                        <i class="glyphicon glyphicon-phone-alt"></i>&nbsp;
+                    0283-6184174</p>
+                    <p>
+                    <i class="glyphicon glyphicon-envelope"></i>&nbsp;
+                    admin@mail.com</p>
+                </div>
+            </div>
+		</div>
+	</div>
+</body>
+</html>

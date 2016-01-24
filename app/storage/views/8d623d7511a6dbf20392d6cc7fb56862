@@ -1,0 +1,62 @@
+<?php $__env->startSection('content'); ?>
+	<div class="well">
+		<legend>Tambah Rombel</legend>
+		<?php echo Form::model($rombel,array('url'=>route('admin.rombel.update',['rombel'=>$rombel->kd_rombel]),'method'=>'PUT','class'=>'form-horizontal')); ?>
+
+			<div class="form-group">	
+				<?php echo Form::label('kelas','Kelas',array('class'=>'col-lg-2 control-label')); ?>
+
+				<div class="col-lg-4">
+					<select name="kelas" class="form-control" readonly="readonly">
+						<option value="<?php echo $rombel->kd_kelas; ?>"><?php echo $rombel->kd_kelas; ?></option>
+						<?php foreach($kelas as $kelas): ?>
+							<option value="<?php echo $kelas->kd_kelas; ?>"><?php echo $kelas->kd_kelas; ?></option>
+						<?php endforeach; ?>
+					</select>
+				</div>
+				<?php echo $errors->first('kelas'); ?>
+
+			</div>
+
+			<div class="form-group">
+				<?php echo Form::label('tahun','Tahun Ajaran',array('class'=>'col-lg-2 control-label')); ?>
+
+				<div class="col-lg-4">
+					<?php echo Form::text('tahun',$rombel->thn_ajaran,array('class'=>'form-control','readonly'=>'readonly')); ?>
+
+				</div>
+			</div>
+
+			<div class="form-group">
+				<?php echo Form::label('nip','NIP',array('class'=>'col-lg-2 control-label')); ?>
+
+				<div class="col-lg-4">
+					<select name="nip" class="form-control">
+						<option value="<?php echo $rombel->nip; ?>"><?php echo $rombel->guru->nm_guru; ?></option>
+						<?php foreach($guru as $guru): ?>
+							<option value="<?php echo $guru->nip; ?>"><?php echo $guru->nm_guru; ?></option>
+						<?php endforeach; ?>
+					</select>
+				</div>
+				<?php echo $errors->first('nip'); ?>
+
+			</div>
+
+			<hr>
+			<div class="form-group">
+				<?php echo Form::label('','',array('class'=>'col-lg-2 control-label')); ?>
+
+				<div class="col-lg-4">
+					<button class="btn btn-primary">
+						<i class="glyphicon glyphicon-saved"></i>
+						Update
+					</button>
+
+					<a href="<?php echo URL::to('admin/rombel'); ?>" class="btn btn-default">Kembali</a>
+				</div>
+			</div>
+		<?php echo Form::close(); ?>
+
+	</div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('template.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

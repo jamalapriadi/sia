@@ -1,0 +1,81 @@
+<?php $__env->startSection('content'); ?>
+<table class="table table-bordered">
+  <tr>
+    <td>Kelas</td>
+    <td> : <?php echo $kelas->kd_kelas; ?></tD>
+    </tr>
+    <tr>
+      <td>Tahun Ajaran</td>
+      <td> : <?php echo $kelas->thn_ajaran; ?></tD>
+      </tr>
+      <tr>
+        <td>NIP / Nama Wali</td>
+        <td> : <?php echo $kelas->nip; ?></td>
+      </tR>
+    </table>
+
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th rowspan='3' style="text-align:center;">No.</th>
+          <th rowspan='3' style="text-align:center;">NIS</th>
+          <th rowspan='3' style="text-align:center;">Nama</th>
+          <th colspan='12' style="text-align:center;">Jenis Nilai</th>
+        </tr>
+        <tr>
+          <?php foreach($jenis as $j): ?>
+          <?php
+          $jumlah=DB::select("select max(no_urut)as jumlah from nilai_harian
+          where id_mengajar='$mengajar->id_mengajar'
+          and semester='$semester'
+          and kd_jenis='$j->kd_jenis'");?>
+          <?php foreach($jumlah as $jum): ?>
+          <?php $jl=$jum->jumlah ;?>
+          <?php endforeach; ?>
+          <td colspan="<?php echo $jl; ?>" style="text-align:center;"><?php echo $j->kd_jenis; ?></td>
+          <?php endforeach; ?>
+        </tr>
+        <tr>
+          <?php
+          $nomor=DB::select("select kd_jenis,no_urut from nilai_harian
+          where id_mengajar='$mengajar->id_mengajar'
+          and semester='$semester'
+          group by kd_jenis,no_urut");?>
+          <?php foreach($nomor as $nomer): ?>
+          <td><?php echo $nomer->no_urut; ?></td>
+          <?php endforeach; ?>
+        </tr>
+      </thead>
+      <tbody>
+        <?php $no=0;?>
+        <?php foreach($siswa as $row): ?>
+        <?php $no++;?>
+        <tr>
+          <td><?php echo $no; ?></td>
+          <td><?php echo $row->nis; ?></td>
+          <td><?php echo $row->nm_siswa; ?></td>
+          <?php foreach($jenis as $jl): ?>
+          <?php
+          $nilai=DB::table('nilai_harian')->where('nis','=',$row->nis)
+          ->where('id_mengajar','=',$mengajar->id_mengajar)
+          ->where('semester','=',$semester)
+          ->where('kd_jenis','=',$jl->kd_jenis)
+          ->orderBy('kd_jenis')
+          ->orderBy('no_urut')->get();
+          ?>
+          <?php foreach($nilai as $n): ?>
+          <?php if($n->kd_jenis==$jl->kd_jenis): ?>
+          <td><?php echo $n->nilai; ?></td>
+          <?php else: ?>
+          <td></td>
+          <?php endif; ?>
+          <?php endforeach; ?>
+          <?php endforeach; ?>
+        </tr>
+        <?php endforeach; ?>
+      </tbody>
+    </table>
+    
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('template.laporan', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

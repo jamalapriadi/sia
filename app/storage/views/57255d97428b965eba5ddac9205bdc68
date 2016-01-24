@@ -1,0 +1,49 @@
+<?php $__env->startSection('content'); ?>
+	<legend>Mata Pelajaran</legend>
+	<a href="<?php echo URL::to('admin/mapel/create'); ?>" class="btn btn-primary">
+		<i class="glyphicon glyphicon-plus"></i>
+		Tambah Mapel
+	</a>
+
+	<?php if(Session::has('pesan')): ?>
+		<?php echo Session::get('pesan'); ?>
+
+	<?php endif; ?>
+
+	<table class="table table-striped" id="contoh">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Kode Mapel</th>
+				<th>Nama Mapel</th>
+				<th></th>
+				<th></th>
+			</tr>
+		</thead>
+		<?php $no=0; ?>
+		<?php foreach($mapel as $row): ?>
+		<?php $no++;?>
+		<tr>
+			<td><?php echo $no; ?></td>
+			<td><?php echo $row->kd_mapel; ?></td>
+			<td><?php echo $row->nm_mapel; ?></td>
+			<td>
+				<a href="<?php echo URL::to('admin/mapel/'.$row->kd_mapel.'/edit'); ?>">
+					<i class="glyphicon glyphicon-edit"></i>
+				</a>
+			</td>
+			<td>
+				<?php echo Form::open(array('url'=>'admin/mapel/'.$row->kd_mapel)); ?>
+
+					<?php echo Form::hidden('_method','DELETE'); ?>
+
+					<?php echo Form::submit('hapus',array('class'=>'btn btn-danger')); ?>
+
+				<?php echo Form::close(); ?>
+
+			</td>
+		</tr>
+		<?php endforeach; ?>
+	</table>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('template.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

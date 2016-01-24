@@ -1,0 +1,274 @@
+<?php $__env->startSection('content'); ?>
+	<legend>Jadwal Pelajaran</legend>
+	
+	<?php if(Session::has('pesan')): ?>
+		<?php echo Session::get('pesan'); ?>
+
+	<?php endif; ?>
+
+	<div>
+		<table class="table table-bordered">
+			<tr>
+				<td>Kelas</td>
+				<td> : </td>
+				<td><?php echo $rombel->kd_kelas; ?></td>
+			</tr>
+			<tr>
+				<td>Tahun Ajaran</td>
+				<td> : </td>
+				<td><?php echo $rombel->thn_ajaran; ?></td>
+			</tr>
+		</table>
+	</div>
+	
+	<hr>
+	
+	<div class="row">
+		<div class="col-sm-6">
+			<panel class="panel-primary">
+				<div class="panel-heading">
+					<p>Senin</p>
+				</div>
+
+				<div class="panel-body">
+					<table class="table">
+						<thead>
+							<tr>
+								<td>Jam Ke -</td>
+								<td>Jam</td>
+								<td>NIP</td>
+								<td>Mapel</td>
+							</tr>
+						</thead>
+						<tbody>
+							<?php
+								$senin=DB::table('jadwal')->where('kd_rombel','=',$rombel->kd_rombel)
+									->where('hari','=','Senin')
+									->join('jam_pelajaran','jadwal.jam_ke','=','jam_pelajaran.jam_ke')
+									->get();
+							?>
+							<?php foreach($senin as $sen): ?>
+							<tr>
+								<td><?php echo $sen->jam_ke; ?></td>
+								<td><?php echo $sen->dari_jam.' - '.$sen->sampai_jam; ?></td>
+								<?php 
+									$mengajar=DB::table('mengajar')->where('id_guru','=',$sen->id_guru)
+									->first();
+								?>
+								<td><?php echo $sen->id_guru; ?></td>
+								<td><?php echo $mengajar->kd_mapel; ?></td>
+							</tr>
+							<?php endforeach; ?>
+						</tbody>
+					</table>
+				</div>
+			</panel>	
+		</div>
+
+		<div class="col-sm-6">
+			<panel class="panel-primary">
+				<div class="panel-heading">
+					<p>Selasa</p>
+				</div>
+
+				<div class="panel-body">
+					<table class="table">
+						<thead>
+							<tr>
+								<td>Jam Ke -</td>
+								<td>Jam</td>
+								<td>NIP</td>
+								<td>Mapel</td>
+							</tr>
+						</thead>
+						<tbody>
+							<?php
+								$selasa=DB::table('jadwal')->where('kd_rombel','=',$rombel->kd_rombel)
+									->where('hari','=','Selasa')
+									->join('jam_pelajaran','jadwal.jam_ke','=','jam_pelajaran.jam_ke')
+									->get();
+							?>
+							<?php foreach($selasa as $sel): ?>
+							<tr>
+								<td><?php echo $sel->jam_ke; ?></td>
+								<td><?php echo $sel->dari_jam.' - '.$sen->sampai_jam; ?></td>
+								<?php 
+									$mengajar=DB::table('mengajar')->where('id_guru','=',$sel->id_guru)
+									->first();
+								?>
+								<td><?php echo $sel->id_guru; ?></td>
+								<td><?php echo $mengajar->kd_mapel; ?></td>
+							</tr>
+							<?php endforeach; ?>
+						</tbody>
+					</table>
+				</div>
+			</panel>	
+		</div>
+
+		<div class="col-sm-6">
+			<panel class="panel-primary">
+				<div class="panel-heading">
+					<p>Rabu</p>
+				</div>
+
+				<div class="panel-body">
+					<table class="table">
+						<thead>
+							<tr>
+								<td>Jam Ke -</td>
+								<td>Jam</td>
+								<td>NIP</td>
+								<td>Mapel</td>
+							</tr>
+						</thead>
+						<tbody>
+							<?php
+								$rabu=DB::table('jadwal')->where('kd_rombel','=',$rombel->kd_rombel)
+									->where('hari','=','Rabu')
+									->join('jam_pelajaran','jadwal.jam_ke','=','jam_pelajaran.jam_ke')
+									->get();
+							?>
+							<?php foreach($rabu as $rab): ?>
+							<tr>
+								<td><?php echo $rab->jam_ke; ?></td>
+								<td><?php echo $rab->dari_jam.' - '.$rab->sampai_jam; ?></td>
+								<?php 
+									$mengajar=DB::table('mengajar')->where('id_guru','=',$rab->id_guru)
+									->first();
+								?>
+								<td><?php echo $rab->id_guru; ?></td>
+								<td><?php echo $mengajar->kd_mapel; ?></td>
+							</tr>
+							<?php endforeach; ?>
+						</tbody>
+					</table>
+				</div>
+			</panel>	
+		</div>
+
+		<div class="col-sm-6">
+			<panel class="panel-primary">
+				<div class="panel-heading">
+					<p>Kamis</p>
+				</div>
+
+				<div class="panel-body">
+					<table class="table">
+						<thead>
+							<tr>
+								<td>Jam Ke -</td>
+								<td>Jam</td>
+								<td>NIP</td>
+								<td>Mapel</td>
+							</tr>
+						</thead>
+						<tbody>
+							<?php
+								$kamis=DB::table('jadwal')->where('kd_rombel','=',$rombel->kd_rombel)
+									->where('hari','=','Kamis')
+									->join('jam_pelajaran','jadwal.jam_ke','=','jam_pelajaran.jam_ke')
+									->get();
+							?>
+							<?php foreach($kamis as $kam): ?>
+							<tr>
+								<td><?php echo $kam->jam_ke; ?></td>
+								<td><?php echo $kam->dari_jam.' - '.$kam->sampai_jam; ?></td>
+								<?php 
+									$mengajar=DB::table('mengajar')->where('id_guru','=',$kam->id_guru)
+									->first();
+								?>
+								<td><?php echo $kam->id_guru; ?></td>
+								<td><?php echo $mengajar->kd_mapel; ?></td>
+							</tr>
+							<?php endforeach; ?>
+						</tbody>
+					</table>
+				</div>
+			</panel>	
+		</div>
+
+		<div class="col-sm-6">
+			<panel class="panel-primary">
+				<div class="panel-heading">
+					<p>Jumat</p>
+				</div>
+
+				<div class="panel-body">
+					<table class="table">
+						<thead>
+							<tr>
+								<td>Jam Ke -</td>
+								<td>Jam</td>
+								<td>NIP</td>
+								<td>Mapel</td>
+							</tr>
+						</thead>
+						<tbody>
+							<?php
+								$jumat=DB::table('jadwal')->where('kd_rombel','=',$rombel->kd_rombel)
+									->where('hari','=','Jumat')
+									->join('jam_pelajaran','jadwal.jam_ke','=','jam_pelajaran.jam_ke')
+									->get();
+							?>
+							<?php foreach($jumat as $jum): ?>
+							<tr>
+								<td><?php echo $jum->jam_ke; ?></td>
+								<td><?php echo $jum->dari_jam.' - '.$jum->sampai_jam; ?></td>
+								<?php 
+									$mengajar=DB::table('mengajar')->where('id_guru','=',$jum->id_guru)
+									->first();
+								?>
+								<td><?php echo $jum->id_guru; ?></td>
+								<td><?php echo $mengajar->kd_mapel; ?></td>
+							</tr>
+							<?php endforeach; ?>
+						</tbody>
+					</table>
+				</div>
+			</panel>	
+		</div>
+
+		<div class="col-sm-6">
+			<panel class="panel-primary">
+				<div class="panel-heading">
+					<p>Sabtu</p>
+				</div>
+
+				<div class="panel-body">
+					<table class="table">
+						<thead>
+							<tr>
+								<td>Jam Ke -</td>
+								<td>Jam</td>
+								<td>NIP</td>
+								<td>Mapel</td>
+							</tr>
+						</thead>
+						<tbody>
+							<?php
+								$sabtu=DB::table('jadwal')->where('kd_rombel','=',$rombel->kd_rombel)
+									->where('hari','=','Sabtu')
+									->join('jam_pelajaran','jadwal.jam_ke','=','jam_pelajaran.jam_ke')
+									->get();
+							?>
+							<?php foreach($sabtu as $sab): ?>
+							<tr>
+								<td><?php echo $sab->jam_ke; ?></td>
+								<td><?php echo $sab->dari_jam.' - '.$sab->sampai_jam; ?></td>
+								<?php 
+									$mengajar=DB::table('mengajar')->where('id_guru','=',$sab->id_guru)
+									->first();
+								?>
+								<td><?php echo $sab->id_guru; ?></td>
+								<td><?php echo $mengajar->kd_mapel; ?></td>
+							</tr>
+							<?php endforeach; ?>
+						</tbody>
+					</table>
+				</div>
+			</panel>	
+		</div>
+	</div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('template.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

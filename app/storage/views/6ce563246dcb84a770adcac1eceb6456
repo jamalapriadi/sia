@@ -1,0 +1,39 @@
+<?php $__env->startSection('content'); ?>
+	<legend>Kontak Kami</legend>
+
+
+		<table class="table table-striped">
+			<tr>
+				<td>Nama</td>
+				<td><?php echo $profile->nm_sekolah; ?></td>
+			</tr>
+			<tr>
+				<td>NSS</td>
+				<td><?php echo $profile->nss; ?></td>
+			</tr>
+			<tr>
+				<td>Alamat</td>
+				<td><?php echo $profile->alamat_sekolah; ?></td>
+			</tr>
+			<tr>
+				<td>Kecamatan</td>
+				<td><?php echo $profile->kecamatan; ?></td>
+			</tr>
+			<tr>
+				<td>Kabupaten</td>
+				<td><?php echo $profile->kabupaten; ?></td>
+			</tr>
+			<tr>
+				<td>Telp</td>
+				<td><?php echo $profile->telp_sekolah; ?></td>
+			</tr>
+			<tr>
+				<td>Fax</td>
+				<td><?php echo $profile->fax_sekolah; ?></td>
+			</tr>
+		</table>
+
+
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('web.template', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

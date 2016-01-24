@@ -1,0 +1,92 @@
+<?php $__env->startSection('content'); ?>
+	<legend>Data Siswa</legend>
+
+	<a href="<?php echo URL::to('admin/siswa/create'); ?>" class="btn btn-primary">
+		<i class="glyphicon glyphicon-plus"></i>
+		Tambah Siswa
+	</a> 
+
+	<a href="<?php echo URL::to('admin/import_siswa'); ?>" class="btn btn-success">
+		<i class="glyphicon glyphicon-import"></i>
+		Import
+	</a>
+
+	<?php if(Session::has('pesan')): ?>
+		<?php echo Session::get('pesan'); ?>
+
+	<?php endif; ?>
+
+	<table class="table table-stripped" id="contoh">
+		<thead>
+			<tr>
+				<th>No</th>
+				<th>NIS</th>
+				<th>Nama</th>
+				<th>JK</th>
+				<th></th>
+				<th></th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php $no=0;?>
+			<?php foreach($siswa as $row): ?>
+				<?php $no++;?>
+				<tr>
+					<td><?php echo $no; ?></td>
+					<td><?php echo $row->nis; ?></td>
+					<td><?php echo $row->nm_siswa; ?></td>
+					<td><?php echo $row->jk; ?></td>
+					<td>
+						<a href="<?php echo URL::to('admin/siswa/'.$row->nis); ?>">
+							<i class="glyphicon glyphicon-list-alt"></i>
+						</a>
+					</td>
+					<td>
+						<a href="<?php echo URL::to('admin/siswa/'.$row->nis.'/edit'); ?>">
+							<i class="glyphicon glyphicon-edit"></i>
+						</a>
+					</td>
+					<td>
+						<?php echo Form::open(array('url'=>'admin/siswa/'.$row->nis)); ?>
+
+							<?php echo Form::hidden('_method','DELETE'); ?>
+
+							<?php echo Form::submit('hapus',array('class'=>'btn btn-danger')); ?>
+
+						<?php echo Form::close(); ?>
+
+					</a>
+				</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+
+	<script>
+	$(function(){
+	    $(".hapus").click(function(){
+		 	var nis=$(this).attr("kode");
+
+		 	$("#idhapus").val(nis);
+		 	$("#myModal").modal("show");
+		});
+	 
+	    $('#konfirmasi').click( function () {
+	    	var nis=$("#idhapus").val();
+
+	    	$.ajax({
+	    		url:"<?php echo URL::to('admin/siswa/hapus'); ?>",
+	    		type:"POST",
+	    		data:"nis="+nis,
+	    		cache:false,
+	    		success:function(html){
+	    			$("#myModal").modal("hide");
+	        		table.row('.selected').remove().draw( false );
+	        		$("#pesan").html(html);
+	    		}
+	    	})
+	    } );
+	});
+	</script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('template.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,0 +1,14 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Tahun Ajaran</th>
+      <th>Mapel</th>
+    </tr>
+  </thead>
+  <?php foreach($ngajar as $row): ?>
+    <tr>
+      <td><?php echo $row->thn_ajaran; ?></td>
+      <td><?php echo $row->kd_mapel; ?></td>
+    </tr>
+  <?php endforeach; ?>
+</table>

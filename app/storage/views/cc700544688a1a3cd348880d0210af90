@@ -1,0 +1,16 @@
+<?php $__env->startSection('content'); ?>
+	<legend>Jadwal Mengajar</legend>
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th>Kelas</th>
+				<th>Tahun Ajaran</th>
+				<th>Semester</th>
+				<th></th>
+				<th></th>
+				<th></th>
+			</tr>
+		</thead>
+	</table>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('template.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

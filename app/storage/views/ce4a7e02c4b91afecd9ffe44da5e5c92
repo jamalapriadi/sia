@@ -1,0 +1,82 @@
+<?php $__env->startSection('content'); ?>
+<legend>Input Nilai UTS</legend>
+<?php if(Session::has('pesan')): ?>
+<?php echo Session::get('pesan'); ?>
+
+<?php endif; ?>
+
+<?php echo Form::open(array('url'=>'guru/simpan_uts','method'=>'post','class'=>'form-horizontal')); ?>
+
+
+<div class="row">
+  <div class="col-sm-6">
+    <table class="table table-bordered">
+      <tr>
+        <td>Kelas</td>
+        <input type="hidden" id="rombel" name="rombel" value="<?php echo $kelas->kd_rombel; ?>">
+        <input type="hidden" name="rombel" value="<?php echo $kelas->kd_rombel; ?>">
+        <td> : <?php echo $kelas->kd_kelas; ?></td>
+      </tr>
+      <tr>
+        <td>Tahun Ajaran</td>
+        <td> : <?php echo $kelas->thn_ajaran; ?></td>
+      </tr>
+      <tr>
+        <td>NIP / Nama Wali</td>
+        <td> : <?php echo $kelas->guru->nm_guru; ?></td>
+      </tr>
+    </table>
+  </div>
+  <div class="col-sm-6">
+
+    </div>
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>No.</th>
+        <th>NIS</th>
+        <th>Nama</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php $no=0;?>
+      <?php foreach($siswa as $row): ?>
+      <?php $no++;?>
+      <tr>
+        <td><?php echo $no; ?></td>
+        <td><?php echo $row->nis; ?>
+
+          <input type="hidden" name="nis<?php echo $no; ?>" value="<?php echo $row->nis; ?>">
+        </td>
+        <td><?php echo $row->nm_siswa; ?></td>
+        <td>
+          <input type="number" style="width:40%" min="1" max="10" value="<?php echo isset($row->n_uts)?$row->n_uts:''; ?>" name="nilai<?php echo $no; ?>" class="form-control" required="required">
+        </td>
+      </tr>
+      <?php endforeach; ?>
+    </tbody>
+  </table>
+
+  <div class="well">
+    <button class="btn btn-primary">
+      <i class="glyphicon glyphicon-saved"></i>
+      Simpan
+    </button>
+  </div>
+
+  <?php echo Form::close(); ?>
+
+
+  <script>
+    $(function(){
+      $("#semester").click(function(){
+        $("#jenis").val('');
+      });
+    });
+  </script>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('template.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

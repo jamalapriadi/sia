@@ -1,0 +1,35 @@
+<?php $__env->startSection('content'); ?>
+  <legend>Tambah Jenis Nilai</legend>
+  <?php if(Session::has('pesan')): ?>
+    <?php echo Session::get('pesan'); ?>
+
+  <?php endif; ?>
+  <?php echo Form::open(array('url'=>'admin/jenis','method'=>'POST','class'=>'form-horizontal')); ?>
+
+    <?php echo Bootstrap::horizontal('col-sm-4','col-sm-2')
+      ->text('kode','Kode Jenis','',$errors); ?>
+
+
+    <?php echo Bootstrap::horizontal('col-sm-4','col-sm-2')
+      ->text('nama','Nama Jenis Nilai','',$errors); ?>
+
+
+    <div class='form-group well'>
+      <?php echo Form::label('','',array('class'=>'col-sm-2 control-label')); ?>
+
+      <div class="col-sm-4">
+        <button class="btn btn-primary">
+          <i class="glyphicon glyphicon-saved"></i>
+          Simpan
+        </button>
+
+        <a href="<?php echo URL::to('admin/jenis'); ?>" class="btn btn-default">
+          Kembali
+        </a>
+      </div>
+    </div>
+  <?php echo Form::close(); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('template.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

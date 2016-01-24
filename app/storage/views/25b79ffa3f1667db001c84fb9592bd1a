@@ -1,0 +1,47 @@
+<?php $__env->startSection('content'); ?>
+<legend>Data Rombel</legend>
+<div class="form-horizontal">
+  <div class="form-group">
+    <?php echo Form::label('Rombel','Rombel',array('class'=>'col-sm-2 control-label')); ?>
+
+    <div class="col-sm-4">
+      <select name="rombel" id="rombel" class="form-control">
+        <option></option>
+        <?php foreach($rombel as $row): ?>
+        <option value="<?php echo $row->kd_rombel; ?>"><?php echo $row->kd_rombel; ?></option>
+        <?php endforeach; ?>
+      </select>
+    </div>
+  </div>
+</div>
+
+<div id="loading" style="display:none;">
+  <div class="alert alert-info"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</div>
+</div>
+
+<div id="tampil"></div>
+
+<script>
+$(function(){
+  $("#rombel").click(function(){
+    var rombel=$("#rombel").val();
+
+    $.ajax({
+      url:"<?php echo URL::to('siswa/get_rombel'); ?>",
+      type:"GET",
+      data:"rombel="+rombel,
+      cache:false,
+      beforeSend:function(){
+        $("#loading").show();
+      },
+      success:function(html){
+        $("#loading").hide();
+        $("#tampil").html(html);
+      }
+    });
+  });
+});
+</script>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('template.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

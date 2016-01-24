@@ -1,0 +1,63 @@
+<?php $__env->startSection('content'); ?>
+  <legend>Nama Gallery : <?php echo $album->nm_album; ?></legend>
+  <?php if(Session::has('pesan')): ?>
+    <?php echo Session::get('pesan'); ?>
+
+  <?php endif; ?>
+
+  <?php echo Form::open(array('url'=>'admin/simpanfoto','method'=>'post','class'=>'form-horizontal','files'=>true)); ?>
+
+  <div class="form-group">
+    <div class="col-sm-4">
+      <input type="hidden" name="album" value="<?php echo $album->id_album; ?>">
+      <input type="file" multiple="multiple" name="file[]" class="form-control">
+    </div>
+    <div class="col-sm-4">
+
+      <button class="btn btn-primary">
+        <i class="glyphicon glyphicon-upload"></i>
+        Upload</button>
+      </div>
+    </div>
+    <?php echo Form::close(); ?>
+
+
+    <div class="row">
+      <?php foreach($detail as $row): ?>
+        <div class="col-sm-3">
+          <div class="thumbnail">
+            <?php echo HTML::image('uploads/gallery/'.$row->foto,'',array('style'=>'width:200px;')); ?>
+
+            <div class="caption">
+              <center>
+                <a href="#" foto="<?php echo $row->id_detail; ?>" class="btn btn-danger hapus">
+                  <i class="glyphicon glyphicon-trash"></i>
+                  Hapus
+                </a>
+              </center>
+            </div>
+          </div>
+        </div>
+      <?php endforeach; ?>
+    </div>
+
+    <script>
+      $(function(){
+        $(".hapus").click(function(){
+          var foto=$(this).attr("foto");
+
+          $.ajax({
+            url:"<?php echo URL::to('admin/hapusdetailfoto'); ?>",
+            type:"POST",
+            data:"foto="+foto,
+            cache:false,
+            success:function(html){
+              location.reload();
+            }
+          })
+        })
+      })
+    </script>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('template.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

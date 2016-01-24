@@ -1,0 +1,70 @@
+<?php $__env->startSection('content'); ?>
+  <table>
+    <tr>
+      <td>Kelas</td>
+      <td> : <?php echo $kelas; ?></td>
+    </tr>
+    <tr>
+      <td>Tahun Ajaran</td>
+      <td> : <?php echo $tahun; ?></td>
+    </tr>
+    <tr>
+      <td>Semester</td>
+      <td> : <?php echo $semester; ?></td>
+    </tr>
+    <tr>
+      <td>Mata Pelajaran</td>
+      <td> : <?php echo $mapel; ?></td>
+    </tr>
+    <tr>
+      <td>NIP /  Nama Wali</td>
+      <td> : <?php echo $guru->nip.' / '.$guru->guru->nm_guru; ?></td>
+    </tr>
+  </table>
+
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th rowspan='2'>No.</th>
+        <th rowspan='2'>NIS</th>
+        <th rowspan='2'>Nama Siswa</th>
+        <th colspan='4'>Nilai</th>
+      </tr>
+      <tr>
+        <th>NH</th>
+        <th>UTS</th>
+        <th>UAS</th>
+        <th>NA</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php $no=0;?>
+      <?php foreach($nilai as $row): ?>
+        <?php $no++;?>
+        <tr>
+          <td><?php echo $no; ?></td>
+          <td><?php echo $row->nis; ?></td>
+          <td><?php echo $row->nm_siswa; ?></td>
+          <?php
+            $harian=DB::table('nilai_harian')
+              ->where('id_mengajar',$id)->where('nis',$row->nis);
+            $jumHarian=$harian->count();
+            $getHarian=$harian->get();
+            $hasil=0;
+            foreach($getHarian as $har){
+              $nilai=$har->nilai;
+              $hasil=$hasil+$nilai;
+            }
+            $hasil=$hasil/$jumHarian;
+          ?>
+          <td><?php echo ceil($hasil); ?></td>
+          <td><?php echo $row->n_uts; ?></td>
+          <td><?php echo $row->n_uas; ?></td>
+          <td><?php echo ceil(($hasil+$row->n_uts+$row->n_uas)/3); ?></td
+        </tr>
+      <?php endforeach; ?>
+    </tbody>
+  </tbody>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('template.laporan', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
